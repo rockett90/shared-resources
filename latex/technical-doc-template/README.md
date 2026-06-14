@@ -63,6 +63,7 @@ assets/
   code/                    code listing examples
   figures/                 circuits, plots, timing diagrams
 bib/mybib.bib              bibliography database
+examples/                  prebuilt example output (dissertation variant)
 LINKS.md                   useful editor URLs
 ```
 
@@ -73,18 +74,39 @@ switch the DRAFT watermark (and any other draft-only elements) on and off.
 
 ## Dissertation use
 
-For university dissertation use, several optional bits are stubbed (commented
-out) in `content/frontmatter/frontmatter.tex` — abstract, acknowledgements,
-declaration of authorship, and a dissertation-style title page. Uncomment the
-`\input` lines there to enable them.
+The template doubles as a university dissertation template. A ready-made example
+of the output is included so you can see what it produces:
 
-To switch to the dissertation title page, in `frontmatter.tex` comment out the
-`titlePage` input and uncomment the `titlePage-dissertation` one. The
-dissertation fields (supervisor, department, university, degree, submission
-date) are pre-filled with placeholders in `preamble/metadata.tex` — edit them
-there. The page compiles even if a field is missing, showing a bracketed
-placeholder like `[supervisor name]` so you can see what still needs filling
-in.
+- 📄 **[examples/dissertation-example.pdf](examples/dissertation-example.pdf)** — the full front matter: dissertation title page, declaration of authorship, abstract and acknowledgements.
+
+<p align="center">
+  <img src="examples/dissertation-preview.png" width="360" alt="Dissertation title page">
+</p>
+
+### Enabling it
+
+The dissertation parts ship commented out in
+**`content/frontmatter/frontmatter.tex`**. Make these changes there:
+
+1. **Title page** — comment out the standard one, uncomment the dissertation one:
+   ```latex
+   % \input{content/frontmatter/titlepage/titlePage}              % comment this out
+   \input{content/frontmatter/titlepage/titlePage-dissertation}   % uncomment this
+   ```
+2. **Declaration of authorship** — uncomment its `\input` line and the `\clearpage` beneath it.
+3. **Abstract** — uncomment its `\input` line and `\clearpage`.
+4. **Acknowledgements** — uncomment its `\input` line and `\clearpage`.
+
+Then fill in the dissertation fields (author, supervisor, department,
+university, degree, submission date) in **`preamble/metadata.tex`**. Every field
+has a bracketed fallback such as `[supervisor name]`, so the title page always
+compiles and shows you exactly what still needs filling in.
+
+Set `\draftmodefalse` in `metadata.tex` for the final, watermark-free build —
+this is how the example PDF above was produced.
+
+> The declaration wording in `content/frontmatter/declaration.tex` follows a
+> common UK form. Check it against your own institution's required wording.
 
 For printed and bound copies, see the `bindingoffset` comment in
 `preamble/packages.tex` to add an inner-margin gutter.
