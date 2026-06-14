@@ -1,0 +1,299 @@
+% =============================================================================
+%  Curriculum Vitae — LaTeX template
+% -----------------------------------------------------------------------------
+%  A two-page CV that shares the "Technical Document Template" visual identity:
+%  Linux Libertine type, teal/ochre accent, stacked double-rule masthead motif.
+%  pdfLaTeX, Overleaf-compatible, TeX Live packages only.
+%
+%  Build:  latexmk -pdf main      (or compile main.tex with pdfLaTeX twice)
+%  Edit:   nearly everything you need is in the CONFIG block below; the body
+%          content lower down uses the helper macros \role, \shortrole, \edu,
+%          \edusub and \skillrow. Replace the placeholder text throughout.
+% =============================================================================
+
+\documentclass[11pt,a4paper]{article}   % 11 pt body (LAY-3, resolved #1)
+
+% =============================================================================
+%  PACKAGES
+% =============================================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% --- Typeface: Linux Libertine (serif) + Inconsolata mono accent ------------
+\usepackage{libertine}            % VIS-1  Linux Libertine
+\usepackage{libertinust1math}     % VIS-1  matching maths (T1)
+\usepackage{inconsolata}          % VIS-2  mono accent for dates/labels
+
+% --- Layout & typography -----------------------------------------------------
+\usepackage[hmargin=1.5cm,vmargin=1.3cm]{geometry}   % LAY-2  (sides held at 1.5cm floor; top/bottom 1.3cm for two-page balance)
+\usepackage{microtype}                % CODE-6  typographic polish
+\usepackage{parskip}                  % CODE-6  paragraph spacing
+\usepackage{enumitem}                 % CODE-6  list control
+\usepackage{xcolor}                   % CODE-6  colours
+\usepackage{titlesec}                 % section heading control
+\usepackage{multicol}                 % two-column certifications list (text extracts in order)
+\usepackage{fancyhdr}                 % page-2 footer
+
+% --- ATS text-layer integrity (ATS-1) ---------------------------------------
+\input{glyphtounicode}            % force ToUnicode maps so Libertine
+\pdfgentounicode=1                % copy/paste & ligatures stay clean (verify AC-2)
+
+% --- hyperref loaded late (CODE-4 ordering note) -----------------------------
+\usepackage{hyperref}
+\usepackage{fontawesome5}           % contact icons in masthead
+\usepackage{accsupp}                % suppress icon glyphs from the extracted text layer
+
+% ---- Footer: name · role (left), page no. (right), thin blue rule ----
+\fancypagestyle{cvfoot}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+  \renewcommand{\footrule}{{\color{linkblue}\hrule height 0.4pt}\vskip 2pt}%
+  \fancyfoot[L]{\footnotesize\color{darkgrey}\cvName\,\textperiodcentered\,\cvRole}%
+  \fancyfoot[R]{\footnotesize\color{darkgrey}Page \thepage}%
+}
+
+% =============================================================================
+%  CONFIG  — personal fields, colours, font choices in one place (CODE-2)
+%  Mirrors the template's metadata.tex \newcommand* style.
+% =============================================================================
+
+% ---- Personal fields --------------------------------------------------------
+%  Replace every value below with your own details.
+\newcommand*{\cvName}{Jane Doe}
+\newcommand*{\cvRole}{Job Title}                           % use a factual title, not an inflated one
+\newcommand*{\cvEmail}{jane.doe@example.com}
+\newcommand*{\cvPhone}{+44 7700 900000}                    % placeholder (Ofcom reserved fictional number)
+\newcommand*{\cvLocation}{City, Country}
+\newcommand*{\cvLinkedinText}{linkedin.com/in/your-handle}
+\newcommand*{\cvLinkedinUrl}{https://www.linkedin.com/in/your-handle}
+
+% ---- Palette (exact template values — VIS-3 / VIS-4, plus warm background) --
+\definecolor{linkblue}{HTML}{0E6B5C}    % primary accent (teal): role titles, links, icons, section bar
+\definecolor{inknavy}{HTML}{0A3A30}     % deeper teal: name + section headings (structural)
+\definecolor{ochre}{HTML}{B5651D}       % single warm secondary accent: section hairline + bullets
+\definecolor{darkgrey}{gray}{0.25}      % VIS-4  secondary text (lightened slightly for cream bg)
+\definecolor{lightgrey}{gray}{0.9}      % VIS-4  faint structural rule
+\definecolor{creampage}{HTML}{FFFBF4}   % warm cream background (lightened) — easy on the eyes
+
+% ---- Page background ---------------------------------------------------------
+\pagecolor{creampage}                   % safe for ATS: background is a separate PDF rendering
+                                        % layer; text stream extraction is unaffected
+
+% ---- Draft toggle for placeholders ------------------------------------------
+%  \draftmode true  -> «add figure» markers are visible (fill or delete them).
+%  \draftmode false -> markers vanish for the final, send-ready PDF.
+\newif\ifdraftmode
+\draftmodetrue                          % [OPTIONAL] set \draftmodefalse before sending
+
+% ---- Leading ----------------------------------------------------------------
+\linespread{1.06}                       % LAY-3  within 1.05–1.15 band
+
+% =============================================================================
+%  PDF METADATA  (ATS-8, CON-7)
+% =============================================================================
+\hypersetup{
+  pdftitle    = {Your Name — Job Title},
+  pdfauthor   = {Your Name},
+  pdfsubject  = {Job Title},
+  pdfkeywords = {keyword one, keyword two, keyword three, keyword four},
+  colorlinks  = true,
+  urlcolor    = linkblue,
+  linkcolor   = linkblue,
+  pdfborder   = {0 0 0}
+}
+
+% =============================================================================
+%  MACROS  (CODE-3) — restyled to the VIS-* identity
+% =============================================================================
+
+% ---- Section heading: Libertine, small caps, linkblue + single 1pt rule -----
+%      (VIS-5/VIS-7; the 1pt+4pt double rule is reserved for the masthead)
+\titleformat{\section}
+  {\Large\scshape\color{inknavy}}        % font: large, small caps, blue
+  {}{0pt}
+  {}
+  [\vspace{2pt}{\color{ochre}\titlerule[0.5pt]}\vspace{1.5pt}{\color{linkblue}\titlerule[2pt]}]   % two-tone: warm hairline + blue bar
+\titlespacing*{\section}{0pt}{7pt}{6pt}
+
+% ---- Mono accent helper (Inconsolata, dark grey) ----------------------------
+\newcommand{\mono}[1]{{\ttfamily\color{darkgrey}#1}}   % VIS-2
+
+% ---- Contact icon: shows the glyph but extracts as nothing (ATS-clean) ------
+\newcommand{\cvicon}[1]{\BeginAccSupp{ActualText={}}{\color{linkblue}#1}\EndAccSupp{}}
+
+% ---- Role entry (two-line header + thin underrule — LAY-6) ------------------
+%  \role{title}{dates}{company}{location}
+\newcommand{\role}[4]{%
+  \vspace{2pt}%
+  {\large\bfseries\color{linkblue} #1}\hfill{\mono{#2}}\par
+  \vspace{-2pt}{\itshape\color{inknavy} #3}\hfill\mono{#4}\par
+  \vspace{1.5pt}{\color{lightgrey}\hrule height 0.4pt}\vspace{2pt}%
+}
+
+% ---- Short, compact role (CON-8 — early roles) ------------------------------
+%  \shortrole{title}{company}{dates}{location}{descriptor}
+%  Reuses the two-line header for visual consistency, then one compact descriptor.
+\newcommand{\shortrole}[5]{%
+  \role{#1}{#3}{#2}{#4}%
+  {\color{darkgrey}#5}\par
+  \vspace{1pt}%
+}
+
+% ---- Education: full-line entry with ochre bullet, styled to match \role ----
+%  \edu{qualification}{institution}{dates}
+\newcommand{\edu}[3]{%
+  \vspace{1.5pt}%
+  \noindent
+  \makebox[1.2em][l]{\textcolor{ochre}{\textbullet}}%
+  \parbox[t]{\dimexpr\linewidth-1.2em-4cm\relax}{\raggedright\strut\bfseries\color{linkblue} #1}%
+  \hfill\parbox[t]{4cm}{\raggedleft\strut\mono{#3}}\par
+  \vspace{-2pt}\hspace{1.2em}{\itshape\color{inknavy} #2}\par
+  \vspace{0.5pt}%
+}
+
+% ---- Education: grouped sub-entry beneath an umbrella (CON-4) ---------------
+%  \edusub{qualification}{institution}{dates}  — inline date keeps grouped items tidy
+\newcommand{\edusub}[3]{%
+  \hangindent=1.4em\hangafter=1
+  \hspace{1.2em}\textcolor{ochre}{\textbullet}~ #1, \textit{#2} \mono{\textperiodcentered\ #3}\par
+}
+
+% ---- Skills row: mono+blue label, then plain text list (ATS-5 — not tabular)
+%  \skillrow{label}{contents}
+\newcommand{\skillrow}[2]{%
+  \mbox{\ttfamily\bfseries\color{linkblue}#1:}\hspace{0.4em}#2\par\vspace{1pt}%
+}
+
+% ---- [OPTIONAL] placeholder for a metric absent from the source (CON-3) -----
+%  Renders visibly in draft, vanishes when \draftmodefalse. Never an invented number.
+\newcommand{\addfigure}[1]{\ifdraftmode\textcolor{red}{\textbf{[\,add figure: #1\,]}}\fi}
+
+% ---- Tight bullet list ------------------------------------------------------
+\newlist{cvitems}{itemize}{1}
+\setlist[cvitems]{
+  leftmargin=1.2em, labelsep=0.5em, topsep=1pt, partopsep=0pt,
+  parsep=0pt, itemsep=1pt, label=\textcolor{ochre}{\textbullet}
+}
+
+\pagestyle{cvfoot}   % footer on every page (name · role left, page no. right)
+
+% =============================================================================
+%  DOCUMENT
+% =============================================================================
+\begin{document}
+
+% -----------------------------------------------------------------------------
+%  MASTHEAD  (LAY-4, VIS-5) — template title page translated to a CV header
+% -----------------------------------------------------------------------------
+\begin{center}
+  {\fontsize{30}{34}\selectfont\color{inknavy}\scshape\textls[100]{\cvName}}\par
+  \vspace{3pt}
+  {\sffamily\color{darkgrey}\large\MakeUppercase{\cvRole}}\par
+  \vspace{4pt}
+  % --- signature double rule: 1pt + 4pt (VIS-5) ---
+  {\color{linkblue}\hrule height 1pt}\vspace{1.5pt}{\color{linkblue}\hrule height 4pt}
+  \vspace{4pt}
+  % --- contact line with icons (Email · Phone · Location · LinkedIn) ---
+  {\small\color{darkgrey}
+    \cvicon{\faEnvelope}\enspace\href{mailto:\cvEmail}{\cvEmail}\quad
+    \cvicon{\faPhone}\enspace\cvPhone\quad
+    \cvicon{\faMapMarker}\enspace\cvLocation\quad
+    \cvicon{\faLinkedin}\enspace\href{\cvLinkedinUrl}{\cvLinkedinText}%
+  }\par
+\end{center}
+\vspace{1pt}
+
+% -----------------------------------------------------------------------------
+%  PROFESSIONAL SUMMARY
+%  One short paragraph: who you are, your headline experience, your specialism,
+%  and what you are focused on now. Aim for 3–5 lines.
+% -----------------------------------------------------------------------------
+\section{Professional Summary}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+% -----------------------------------------------------------------------------
+%  EXPERIENCE
+%  \role{Job Title}{Dates}{Employer}{Location}, then a cvitems bullet list.
+%  Lead each bullet with the outcome; quantify where you can.
+% -----------------------------------------------------------------------------
+\section{Experience}
+
+\role{Most Recent Job Title}{Mon 20XX -- Present}{Employer Name}{City, Country}
+\begin{cvitems}
+  \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+  \item Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+  \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur \addfigure{quantified result}.
+  \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+\end{cvitems}
+
+\role{Previous Job Title}{Mon 20XX -- Mon 20XX}{Employer Name}{City, Country}
+\begin{cvitems}
+  \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam.
+  \item Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
+        vitae dicta sunt explicabo.
+  \item Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+        fugit, sed quia consequuntur magni dolores eos.
+\end{cvitems}
+
+% --- earlier roles as compact single-line entries -----------------------------
+\shortrole{Earlier Job Title}{Employer Name}{Mon 20XX -- Mon 20XX}{City, Country}%
+  {Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.}
+
+\shortrole{First Job Title}{Employer Name}{Mon 20XX -- Mon 20XX}{City, Country}%
+  {Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.}
+
+% -----------------------------------------------------------------------------
+%  EDUCATION
+%  \edu{Qualification}{Institution}{Dates} for headline entries.
+%  \edusub{...}{...}{...} nests smaller items under the preceding \edu.
+% -----------------------------------------------------------------------------
+\section{Education}
+
+\edu{Degree --- Grade / Classification}{University Name}{20XX -- 20XX}
+
+\edu{Qualification (umbrella heading)}{Institution Name}{20XX -- 20XX}
+\edusub{Sub-award or module one}{Institution Name}{20XX}
+\edusub{Sub-award or module two}{Institution Name}{20XX}
+
+\edu{Further Qualification --- Grade}{Institution Name}{20XX -- 20XX}
+
+% -----------------------------------------------------------------------------
+%  TECHNICAL SKILLS
+%  \skillrow{Category}{comma-separated list}. Plain text (not a table) keeps it
+%  readable by automated CV/résumé parsers.
+% -----------------------------------------------------------------------------
+\section{Technical Skills}
+\skillrow{Category One}{Lorem, ipsum, dolor, sit amet, consectetur}
+\skillrow{Category Two}{Adipiscing, elit, sed do eiusmod, tempor}
+\skillrow{Category Three}{Incididunt, ut labore, et dolore, magna}
+\skillrow{Category Four}{Aliqua, ut enim, ad minim, veniam}
+\skillrow{Tools}{Tool A, Tool B, Tool C, Tool D, Tool E}
+
+% -----------------------------------------------------------------------------
+%  CERTIFICATIONS & MEMBERSHIP
+% -----------------------------------------------------------------------------
+\section{Certifications \& Membership}
+\setlength{\columnsep}{1.5em}
+\setlength{\premulticols}{0pt}
+\setlength{\multicolsep}{2pt}
+\begin{multicols}{2}
+\begin{cvitems}
+  \item Certification or membership one
+  \item Certification or membership two
+  \item Certification or membership three
+  \item Certification or membership four
+\end{cvitems}
+\end{multicols}
+
+\end{document}

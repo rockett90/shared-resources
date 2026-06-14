@@ -1,0 +1,62 @@
+% ====================================================================
+% metadata.tex
+% --------------------------------------------------------------------
+% Document-level metadata.
+%
+% Change these values per document.
+% This keeps all the "per document" bits in one place.
+% ====================================================================
+
+% --------------------------------------------------
+% Build flags
+% --------------------------------------------------
+% Use \draftmodetrue during writing/review (enables the DRAFT watermark
+% and any other draft-only elements). Set \draftmodefalse for the final
+% build.
+\newif\ifdraftmode
+\draftmodetrue
+
+% --------------------------------------------------
+% Core document fields
+% --------------------------------------------------
+\newcommand*{\documentType}{Technical Document}        % document type, used on the front page
+\newcommand*{\documentTitle}{Your Document Title}       % document title, used on the front page
+%\newcommand*{\documentSubtitle}{Hardware Design Specification}  % not currently in use
+
+\newcommand*{\issueNumber}{Issue 0A}        % front page and footer
+\newcommand*{\releaseDate}{July 2025}       % front page
+
+% --------------------------------------------------
+% Identification and ownership
+% --------------------------------------------------
+\newcommand*{\documentNumber}{DOC-XXX-YYYY}     % internal doc ID (optional)
+\newcommand*{\authorName}{Author}               % or team name
+\newcommand*{\companyName}{Your Company Ltd}    % used in header
+
+% --------------------------------------------------
+% Assets
+% --------------------------------------------------
+% Path to the logo used on the title page. Change here rather than
+% editing titlePage.tex when swapping logos per document.
+\newcommand*{\logoPath}{assets/logos/Logo.png}
+
+% --------------------------------------------------
+% Dissertation-specific fields
+% --------------------------------------------------
+% Used by the dissertation title page and the declaration of authorship.
+% Edit the values below for your own submission. They are defined here
+% so the dissertation front matter compiles out of the box; the
+% consuming files also carry \providecommand fallbacks, so nothing
+% breaks if you choose to delete a line.
+\newcommand*{\supervisorName}{Dr A. Supervisor}
+\newcommand*{\departmentName}{Department of [Your Department]}
+\newcommand*{\universityName}{University of [Your University]}
+\newcommand*{\degreeName}{[Your Degree, e.g. MEng / MSc / PhD]}
+\newcommand*{\submissionDate}{May 2026}
+
+% --------------------------------------------------
+% Add any other metadata fields below
+% --------------------------------------------------
+% \newcommand*{\projectName}{Cool Project XYZ}
+% \newcommand*{\reviewedBy}{Reviewer Name}
+% \newcommand*{\approvedBy}{Approver Name}

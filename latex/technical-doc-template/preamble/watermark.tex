@@ -1,0 +1,27 @@
+% ====================================================================
+% watermark.tex
+% --------------------------------------------------------------------
+% Page watermark using TikZ and atbegshi.
+%
+% The watermark only renders when draft mode is enabled. Toggle the
+% \draftmodetrue / \draftmodefalse flag in metadata.tex.
+%
+% Assumes:
+%   - \usepackage{atbegshi} is loaded in packages.tex
+%   - TikZ is loaded (tikz / xcolor) in packages.tex
+%   - \ifdraftmode is defined in metadata.tex
+% ====================================================================
+
+\ifdraftmode
+  \AtBeginShipout{%
+    \AtBeginShipoutAddToBox{%
+      \tikz[overlay,remember picture]%
+        \node[
+          rotate=40,
+          scale=6,
+          color=gray!20,
+          font=\bfseries
+        ] at (current page.center) {DRAFT};%
+    }%
+  }
+\fi

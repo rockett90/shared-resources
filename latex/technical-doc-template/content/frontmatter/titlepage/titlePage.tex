@@ -1,0 +1,80 @@
+% ====================================================================
+% titlePage.tex
+% --------------------------------------------------------------------
+% Title page layout
+%
+% Assumes:
+%   - \documentTitle, \documentType, \issueNumber, \releaseDate are
+%     defined in metadata.tex
+%   - graphicx is loaded in packages.tex
+%   - The logo image path (\logoPath) is valid
+%   - Overview text is in a separate file (overview.tex)
+%   - The optional key-figure block at the bottom expects a figure file
+%     under assets/figures/ (or the block can be removed entirely).
+% ====================================================================
+
+\begin{titlepage}
+
+  % --------------------------------------------------
+  % Top section: logo (left) and issue/date (right)
+  % --------------------------------------------------
+  \setlength{\parindent}{0pt}
+
+  \begin{minipage}{0.4\textwidth}
+    % Logo path is defined in metadata.tex via \logoPath.
+    \includegraphics[width=0.75\textwidth]{\logoPath}
+  \end{minipage}%
+  \begin{minipage}{0.6\textwidth}
+    \raggedleft
+    \Large\textbf{\documentType}\\
+    \normalsize \issueNumber, \releaseDate
+  \end{minipage}
+
+  \vspace{0.5cm}
+
+  % --------------------------------------------------
+  % Horizontal rule under header
+  % --------------------------------------------------
+  \hrule height 1pt
+  \vspace{0.2cm}
+
+  % --------------------------------------------------
+  % Document title
+  % --------------------------------------------------
+  \begin{center}
+    {\LARGE\textbf{\documentTitle}}
+  \end{center}
+
+  % Double horizontal lines with small space
+  \vspace{0.2cm}
+  \hrule height 1pt
+  \vspace{0.1cm}
+  \hrule height 4pt
+  \vspace{1cm}
+
+  % --------------------------------------------------
+  % Overview section (pulled in from separate file)
+  % --------------------------------------------------
+  {\large\textbf{Overview}}\\
+  \input{content/frontmatter/titlepage/overview}
+
+  \vspace{0.5cm}
+
+  % --------------------------------------------------
+  % Key figure (OPTIONAL)
+  % --------------------------------------------------
+  % A single representative figure for the cover, e.g. a system or block
+  % diagram, schematic, photo, plot, or screenshot. Replace the example
+  % input below with your own figure, or delete this whole block (heading
+  % included) if your document does not need a cover figure.
+  \large\textbf{Key Figure}
+
+  \vspace{0.5cm}
+
+  \begin{center}
+    % Replace with your own figure file, e.g.:
+    %   \input{assets/figures/your_figure}
+    \input{assets/figures/circuits/circuitDiagram}   % example: a CircuiTikZ diagram
+  \end{center}
+
+\end{titlepage}

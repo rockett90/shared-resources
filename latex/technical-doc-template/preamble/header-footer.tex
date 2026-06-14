@@ -1,0 +1,33 @@
+% ====================================================================
+% header-footer.tex
+% --------------------------------------------------------------------
+% Header and footer setup using fancyhdr.
+%
+% Assumes:
+%   - fancyhdr is loaded in packages.tex
+%   - \documentTitle, \issueNumber, \releaseDate are defined in metadata.tex
+% ====================================================================
+
+\pagestyle{fancy}
+
+% --------------------------------------------------
+% Header content
+% --------------------------------------------------
+% Left header: company name
+\fancyhead[L]{\large{\companyName}}
+
+% Optionally, you could enable these:
+% \fancyhead[C]{\documentTitle}
+% \fancyhead[R]{\documentNumber}
+
+% --------------------------------------------------
+% Footer content and rules
+% --------------------------------------------------
+\setlength{\headheight}{30pt}   % avoid "headheight too small" warnings
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footruleskip}{10pt}
+\renewcommand{\footrulewidth}{1.5pt}
+
+\lfoot{\issueNumber}
+\cfoot{\documentTitle}                        % document title in centre footer
+\rfoot{Page: \thepage}

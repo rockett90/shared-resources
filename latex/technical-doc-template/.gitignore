@@ -1,0 +1,36 @@
+# LaTeX build artifacts — keep the folder clean if compiled in place.
+# preview.png is committed deliberately (it's the README preview).
+
+# Compiled output
+main.pdf
+
+# latexmk
+*.fdb_latexmk
+*.fls
+
+# Core auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
+*.synctex(busy)
+*.xdv
+
+# Bibliography
+*.bbl
+*.blg
+
+# Nomenclature (nomencl)
+*.nlo
+*.nls
+*.ilg
+
+# Editor / OS noise
+*.swp
+*~
+.DS_Store
+Thumbs.db
+.vscode/

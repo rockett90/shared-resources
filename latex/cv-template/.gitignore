@@ -1,0 +1,26 @@
+# LaTeX build artifacts — keep the folder clean if compiled in place.
+# preview.png is committed deliberately (it's the README preview), so it is
+# NOT covered by the *.pdf / artifact rules below.
+
+# Compiled output
+main.pdf
+
+# latexmk
+*.fdb_latexmk
+*.fls
+
+# Core auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.synctex(busy)
+*.xdv
+
+# Editor / OS noise
+*.swp
+*~
+.DS_Store
+Thumbs.db
+.vscode/

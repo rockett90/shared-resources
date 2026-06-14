@@ -1,0 +1,7 @@
+# Normalise line endings to LF inside the repo so edits on Windows and any
+# Linux/CI tooling stay consistent. Files still check out with native endings.
+* text=auto eol=lf
+
+# Treat preview images and PDFs as binary (no line-ending or diff munging).
+*.png binary
+*.pdf binary

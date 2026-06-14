@@ -1,0 +1,124 @@
+% ====================================================================
+% packages.tex
+% --------------------------------------------------------------------
+% Central place to load all LaTeX packages.
+%
+% The document class is selected in main.tex, e.g.:
+%   \documentclass[12pt,onecolumn]{article}
+%
+% Sections marked [OPTIONAL] can be commented out if the corresponding
+% feature is not needed in your document. Doing so reduces compile time
+% and external dependencies.
+% ====================================================================
+
+% --------------------------------------------------
+% Fonts and encoding
+% --------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage{lettrine}
+
+% --------------------------------------------------
+% Language and page layout
+% --------------------------------------------------
+\usepackage[english]{babel}
+% For printed and bound copies (e.g. dissertations), add a binding offset
+% by switching to the alternative geometry block below.
+\usepackage[
+  a4paper,
+  top=2.54cm,
+  bottom=2.54cm,
+  left=2.54cm,
+  right=2.54cm
+]{geometry}
+% \usepackage[
+%   a4paper,
+%   top=2.54cm,
+%   bottom=2.54cm,
+%   inner=3.5cm,
+%   outer=2.5cm,
+%   bindingoffset=1cm
+% ]{geometry}
+\usepackage[onehalfspacing]{setspace}   % line spacing
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{eso-pic}                    % background / overlay elements
+\usepackage{titling}                    % custom title page
+\usepackage{float}                      % 'H' float specifier
+\usepackage{atbegshi}                   % shipout hooks (used by watermark.tex)
+
+% --------------------------------------------------
+% Tables
+% --------------------------------------------------
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{rotating}
+\usepackage[l3]{csvsimple}              % [OPTIONAL] build tables from .csv files; remove if unused
+
+% --------------------------------------------------
+% Graphics and colours
+% --------------------------------------------------
+\usepackage{graphicx}
+\usepackage[table,xcdraw]{xcolor}       % replaces 'color' + fixes class options
+
+% --------------------------------------------------
+% Maths and units
+% --------------------------------------------------
+\usepackage{mathtools}                  % also loads amsmath
+\usepackage{siunitx}                    % v3+ uses \qty{...}{...} (\SI still works)
+\usepackage{empheq}                     % visual markup for equations
+
+% --------------------------------------------------
+% [OPTIONAL] Plots, TikZ, and diagram libraries
+% Comment out the parts you don't need. circuitikz and tikz-timing are
+% electronics-specific — remove them if your document has no circuit or
+% timing diagrams. (The example content in content/sections/ uses them,
+% so also remove those examples if you disable the packages.)
+% --------------------------------------------------
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{calc}
+\usepackage{circuitikz}
+\usepackage{tikz-timing}
+
+% --------------------------------------------------
+% Code and listings
+% --------------------------------------------------
+\usepackage{listings}                   % styled in styling.tex
+% [OPTIONAL] minted gives prettier syntax highlighting via Pygments,
+% but requires compiling with -shell-escape and a working Python +
+% Pygments install. Uncomment if you want to use it.
+% \usepackage{minted}
+
+% --------------------------------------------------
+% Headers / footers
+% --------------------------------------------------
+\usepackage{fancyhdr}
+
+% --------------------------------------------------
+% References, links, citations
+% --------------------------------------------------
+% NOTE: hyperref must be loaded near the end of the preamble, and
+% cleveref MUST be loaded AFTER hyperref. Do not reorder these lines.
+\usepackage[numbers]{natbib}            % numeric citations
+\usepackage{varioref}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+
+% --------------------------------------------------
+% Nomenclature
+% --------------------------------------------------
+\usepackage{nomencl}
+
+% --------------------------------------------------
+% [OPTIONAL] Development / dummy text
+% Remove these once your document is no longer using placeholder text.
+% --------------------------------------------------
+\usepackage{blindtext}                  % dummy text for testing
+\usepackage{lipsum}                     % Lorem ipsum text

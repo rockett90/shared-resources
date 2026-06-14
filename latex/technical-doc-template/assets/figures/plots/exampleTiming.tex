@@ -1,0 +1,21 @@
+% ====================================================================
+% exampleTiming.tex
+% --------------------------------------------------------------------
+% Example timing diagram using tikz-timing.
+% ====================================================================
+
+\begin{figure}[H]
+\centering
+\begin{tikztimingtable}[
+  timing/slope=0,
+  timing/xunit=10mm,   % <-- horizontal scale (pick what looks right)
+  timing/yunit=7.5mm    % <-- vertical scale
+]
+  CLK   & 8{C} \\
+  nRST  & 2H 2L 4H \\
+  DATA  & 2L 2H 2L 2H \\
+  VALID & 4L 2H 2L \\
+\end{tikztimingtable}
+\caption{Example timing diagram generated with \texttt{tikz-timing}.}
+\label{fig:timing-example}
+\end{figure}
