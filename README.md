@@ -14,7 +14,7 @@ says otherwise. Use it freely; attribution is appreciated but not required.
 - [cv-template](latex/cv-template) — clean, ATS-friendly two-page CV template.
 
 ### 💻 Code
-- _Nothing here yet._
+- [portfolio-template](https://github.com/rockett90/portfolio-template) — a clean, deploy-ready personal website (CV, projects, resources, ventures) built with Astro and hosted free on Cloudflare. In its own repo so GitHub's "Use this template" button works.
 
 ### 🔌 Hardware
 - _Nothing here yet._
