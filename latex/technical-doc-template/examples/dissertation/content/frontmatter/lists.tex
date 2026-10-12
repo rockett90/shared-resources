@@ -1,0 +1,34 @@
+% ====================================================================
+% lists.tex
+% --------------------------------------------------------------------
+% Frontmatter lists:
+%   - List of Figures
+%   - List of Tables
+%   - List of Listings (optional, useful when many code listings are used)
+%
+% Assumes:
+%   - Figures and tables have captions and labels defined elsewhere
+%   - Nomenclature entries are defined in nomenclature.tex
+% ====================================================================
+
+% --------------------------------------------------
+% List of Figures
+% --------------------------------------------------
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+
+% --------------------------------------------------
+% List of Tables
+% --------------------------------------------------
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+
+% --------------------------------------------------
+% List of Listings (optional)
+% Uncomment if your document has multiple code listings.
+% --------------------------------------------------
+% \phantomsection
+% \addcontentsline{toc}{section}{List of Listings}
+% \lstlistoflistings

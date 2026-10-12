@@ -56,9 +56,13 @@ source file, so the document cannot drift away from the results.
 
 ## How they are put together
 
-Each example folder holds only the files that differ from the template, which
-makes them a good guide to what you would change for a document of your own.
-In both cases that is:
+Each example folder is a complete project, with its own copy of the preamble
+and front matter, so you can take either one as it is and use it as the start
+of your own document.
+
+Most of the files in each are plain copies of the template's. The ones written
+for the example, which are the ones you would change for a document of your
+own, are:
 
 - `preamble/metadata.tex`, for the title, the names and the switches
 - `main.tex`, to list the sections
@@ -66,26 +70,28 @@ In both cases that is:
 - the nomenclature, and the revision table or the abstract and
   acknowledgements
 
-Everything else, including the layout, the styling and the title pages, comes
-from the template unchanged.
-
 ## Building them
 
-To build one by hand, copy the template folder somewhere, then copy the
-example folder over the top of it and build as usual:
+From inside either example folder, build it in the usual way:
 
 ```bash
 latexmk -pdf main
 ```
 
-To rebuild both and refresh the PDFs and preview images in this folder, run
-the script from anywhere in the repo:
+On Overleaf, zip the example folder and upload it as a new project, with the
+compiler set to pdfLaTeX.
+
+## Keeping them up to date
+
+When the template changes, the copies in the examples need to follow. This
+script copies the template's shared files into both examples again, rebuilds
+them, and refreshes the PDFs and preview images in this folder:
 
 ```bash
 bash examples/build-examples.sh
 ```
 
-It works in a temporary folder, so nothing is built in place. It needs
+It builds in a temporary folder, so no build files are left behind. It needs
 `latexmk`, and `pdftoppm` for the preview images.
 
 To reproduce the dissertation's results, run the simulation, which rewrites

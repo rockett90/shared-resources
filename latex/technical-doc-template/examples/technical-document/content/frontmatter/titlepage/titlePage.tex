@@ -1,0 +1,81 @@
+% ====================================================================
+% titlePage.tex
+% --------------------------------------------------------------------
+% Title page layout
+%
+% Assumes:
+%   - \documentTitle, \documentType, \issueNumber, \releaseDate are
+%     defined in metadata.tex
+%   - graphicx is loaded in packages.tex
+%   - The logo image path (\logoPath) is valid, and \logoWidth is set
+%   - Overview text is in a separate file (overview.tex)
+%   - The optional key-figure block at the bottom inputs the figure file
+%     named by \keyFigurePath in metadata.tex (empty for no key figure).
+% ====================================================================
+
+\begin{titlepage}
+
+  % --------------------------------------------------
+  % Top section: logo (left) and issue/date (right)
+  % --------------------------------------------------
+  \setlength{\parindent}{0pt}
+
+  \begin{minipage}{0.4\textwidth}
+    % Logo path and width are defined in metadata.tex via \logoPath
+    % and \logoWidth.
+    \includegraphics[width=\logoWidth]{\logoPath}
+  \end{minipage}%
+  \begin{minipage}{0.6\textwidth}
+    \raggedleft
+    \Large\textbf{\documentType}\\
+    \normalsize \issueNumber, \releaseDate
+  \end{minipage}
+
+  \vspace{0.5cm}
+
+  % --------------------------------------------------
+  % Horizontal rule under header
+  % --------------------------------------------------
+  \hrule height 1pt
+  \vspace{0.2cm}
+
+  % --------------------------------------------------
+  % Document title
+  % --------------------------------------------------
+  \begin{center}
+    {\LARGE\textbf{\documentTitle}}
+  \end{center}
+
+  % Double horizontal lines with small space
+  \vspace{0.2cm}
+  \hrule height 1pt
+  \vspace{0.1cm}
+  \hrule height 4pt
+  \vspace{1cm}
+
+  % --------------------------------------------------
+  % Overview section (pulled in from separate file)
+  % --------------------------------------------------
+  {\large\textbf{Overview}}\\
+  \input{content/frontmatter/titlepage/overview}
+
+  \vspace{0.5cm}
+
+  % --------------------------------------------------
+  % Key figure (OPTIONAL)
+  % --------------------------------------------------
+  % A single representative figure for the cover, e.g. a system or block
+  % diagram, schematic, photo, plot, or screenshot. The figure file is
+  % set in metadata.tex via \keyFigurePath. If that is left empty, the
+  % whole block is left out, heading included.
+  \ifx\keyFigurePath\empty\else
+    \large\textbf{Key Figure}
+
+    \vspace{0.5cm}
+
+    \begin{center}
+      \input{\keyFigurePath}
+    \end{center}
+  \fi
+
+\end{titlepage}

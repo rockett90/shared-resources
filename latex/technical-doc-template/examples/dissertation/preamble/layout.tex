@@ -1,0 +1,36 @@
+% ====================================================================
+% layout.tex
+% --------------------------------------------------------------------
+% Structural layout helpers:
+%   - Table helpers and column types
+%   - Section and table-of-contents depth
+% ====================================================================
+
+% --------------------------------------------------
+% Table helpers
+% --------------------------------------------------
+% Thick horizontal rule for tables
+\newcommand{\thickhline}{\noalign{\hrule height .9pt}}
+
+% Column type 's' for a narrower X column (tabularx)
+% Requires: \usepackage{tabularx} in packages.tex
+\newcolumntype{s}{>{\hsize=.4\hsize}X}
+
+% Simple heading macro for table cells
+\newcommand{\heading}[1]{\multicolumn{1}{l}{#1}}
+
+% --------------------------------------------------
+% Section numbering and table-of-contents depth
+% --------------------------------------------------
+% Show headings down to \paragraph level:
+%   \part           = level -1
+%   \chapter        = level 0 (report/book)
+%   \section        = level 1
+%   \subsection     = level 2
+%   \subsubsection  = level 3
+%   \paragraph      = level 4
+%   \subparagraph   = level 5
+%
+% Setting to 4 includes \paragraph in numbering and ToC.
+\setcounter{secnumdepth}{4} % Number paragraphs like 0.0.0.0
+\setcounter{tocdepth}{4}    % Show paragraphs in the ToC

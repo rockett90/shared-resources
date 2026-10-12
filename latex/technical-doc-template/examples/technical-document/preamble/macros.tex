@@ -1,0 +1,48 @@
+% ====================================================================
+% macros.tex
+% --------------------------------------------------------------------
+% General-purpose macros used throughout the document.
+%
+% This file is for reusable helpers (notation, units, shortcuts, etc.).
+% Requires: xcolor (loaded in packages.tex) for \todo.
+%           ifdraftmode flag (defined in metadata.tex) for \todo behaviour.
+% ====================================================================
+
+% --------------------------------------------------
+% Notation shortcuts (EXAMPLE)
+% --------------------------------------------------
+% The shortcuts below are an electronics-flavoured example. Keep the
+% ones you find useful, delete the rest, and add your own field-specific
+% shortcuts here (e.g. chemistry, finance, control theory).
+\newcommand*{\Vin}{V_{\text{IN}}}
+\newcommand*{\Vout}{V_{\text{OUT}}}
+\newcommand*{\Vcc}{V_{\text{CC}}}
+\newcommand*{\Vdd}{V_{\text{DD}}}
+\newcommand*{\Gnd}{\text{GND}}
+
+% --------------------------------------------------
+% Maths notation
+% --------------------------------------------------
+% Upright differential 'd' for integrals, e.g. \int f(x) \dd x
+\newcommand*{\dd}{\mathop{}\!\mathrm{d}}
+% Partial derivative shortcut: \pdv{f}{x}
+\newcommand*{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+% Total derivative shortcut: \dv{f}{x}
+\newcommand*{\dv}[2]{\frac{\dd #1}{\dd #2}}
+
+% --------------------------------------------------
+% Draft-only annotation
+% --------------------------------------------------
+% \todo{note} shows a red inline annotation in draft mode and disappears
+% in the final build. Useful for review markers.
+\ifdraftmode
+  \newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+\else
+  \newcommand{\todo}[1]{}
+\fi
+
+% --------------------------------------------------
+% Examples (uncomment or add your own per-project shortcuts)
+% --------------------------------------------------
+% \newcommand*{\MyCircuitName}{Example Circuit}
+% \newcommand*{\GainStageA}{Preamp Stage A}

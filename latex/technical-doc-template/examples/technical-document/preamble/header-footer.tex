@@ -1,0 +1,38 @@
+% ====================================================================
+% header-footer.tex
+% --------------------------------------------------------------------
+% Header and footer setup using fancyhdr.
+%
+% Assumes:
+%   - fancyhdr is loaded in packages.tex
+%   - \companyName, \documentShortTitle, \issueNumber are defined in
+%     metadata.tex
+% ====================================================================
+
+\pagestyle{fancy}
+\fancyhf{}                      % clear fancyhdr's defaults; every slot is set below
+
+% --------------------------------------------------
+% Header content
+% --------------------------------------------------
+% Left header: company name
+\fancyhead[L]{\large{\companyName}}
+
+% Right header: running section title. Delete this line for an empty
+% slot, or swap in \documentNumber.
+\fancyhead[R]{\slshape\leftmark}
+
+% Optionally, you could enable this:
+% \fancyhead[C]{\documentTitle}
+
+% --------------------------------------------------
+% Footer content and rules
+% --------------------------------------------------
+\setlength{\headheight}{30pt}   % avoid "headheight too small" warnings
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footruleskip}{10pt}
+\renewcommand{\footrulewidth}{1.5pt}
+
+\lfoot{\issueNumber}
+\cfoot{\documentShortTitle}                   % title in centre footer (short form, if one is set)
+\rfoot{Page: \thepage}

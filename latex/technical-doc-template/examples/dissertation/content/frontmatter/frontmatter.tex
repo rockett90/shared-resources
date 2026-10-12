@@ -1,0 +1,84 @@
+% ====================================================================
+% frontmatter.tex
+% --------------------------------------------------------------------
+% Front matter for the document:
+%   - Title page
+%   - Table of contents
+%   - (optionally) lists, nomenclature, etc.
+%   - Page Numbering
+%
+% Each optional part is switched on or off in metadata.tex, under
+% "Front matter switches". This file does not need editing unless you
+% want to change the order of the parts.
+% ====================================================================
+
+% --------------------------------------------------
+% Title Page
+% --------------------------------------------------
+\ifdissertationtitle
+  \input{content/frontmatter/titlepage/titlePage-dissertation}
+\else
+  \input{content/frontmatter/titlepage/titlePage}
+\fi
+\clearpage
+
+% Use uppercase Roman numerals (I, II, III, ...) for the front matter
+\pagenumbering{Roman}
+
+% --------------------------------------------------
+% Declaration of Authorship (optional, dissertation use)
+% --------------------------------------------------
+\ifshowdeclaration
+  \input{content/frontmatter/declaration}
+  \clearpage
+\fi
+
+% --------------------------------------------------
+% Abstract (optional, common for dissertations and research reports)
+% --------------------------------------------------
+\ifshowabstract
+  \input{content/frontmatter/abstract}
+  \clearpage
+\fi
+
+% --------------------------------------------------
+% Acknowledgements (optional, dissertation use)
+% --------------------------------------------------
+\ifshowacknowledgements
+  \input{content/frontmatter/acknowledgements}
+  \clearpage
+\fi
+
+% --------------------------------------------------
+% Revision Control Table (optional)
+% --------------------------------------------------
+\ifshowrevisions
+  \input{content/frontmatter/revisionControl}
+  \clearpage
+\fi
+
+% --------------------------------------------------
+% Table of Contents
+% --------------------------------------------------
+\tableofcontents
+\clearpage
+
+% --------------------------------------------------
+% List of Tables and List of Figures (optional)
+% --------------------------------------------------
+\ifshowlists
+  \input{content/frontmatter/lists}
+  \clearpage
+\fi
+
+% --------------------------------------------------
+% Nomenclature (optional)
+% --------------------------------------------------
+\ifshownomenclature
+  \input{content/frontmatter/nomenclature}
+  \printnomenclature
+  \clearpage
+\fi
+
+% Use Arabic numerals (1, 2, 3, ...) for the main body of the document
+\pagenumbering{arabic}

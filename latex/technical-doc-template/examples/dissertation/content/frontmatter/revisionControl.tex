@@ -1,0 +1,45 @@
+% ====================================================================
+% revisionControl.tex
+% --------------------------------------------------------------------
+% Document revision control table.
+%
+% Shows:
+%   - Issue identifier
+%   - Release date
+%   - Summary of changes
+%
+% Assumes:
+%   - \issueNumber and \releaseDate are defined in metadata.tex
+%   - \thickhline and tabularx are available (layout.tex + packages.tex)
+% ====================================================================
+
+\phantomsection
+\markboth{\MakeUppercase{Revision Control}}{}
+\section*{Revision Control}
+\addcontentsline{toc}{section}{Revision Control}
+\label{sec:revisionControl}
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{@{} p{2cm} p{3cm} X @{}}
+\thickhline
+\textbf{Issue} & \textbf{Release Date} & \textbf{Description of Changes} \\
+\thickhline
+
+% --------------------------------------------------
+% Current issue (can use metadata macros)
+% --------------------------------------------------
+\issueNumber & \releaseDate & Initial issue of this document template. \\
+
+\hline
+% --------------------------------------------------
+% Example placeholder for future issues
+% (copy and edit as needed)
+% --------------------------------------------------
+% 0B & 2025-08-01 & Corrected typos and updated example content. \\
+% \hline
+
+\end{tabularx}
+\caption{Document Revision Control}
+\label{tab:revisionControl}
+\end{table}

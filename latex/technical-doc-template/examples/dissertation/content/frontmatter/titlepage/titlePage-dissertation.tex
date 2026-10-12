@@ -1,0 +1,80 @@
+% ====================================================================
+% titlePage-dissertation.tex
+% --------------------------------------------------------------------
+% Dissertation-style title page layout.
+%
+% Use this instead of titlePage.tex for a university dissertation.
+% Switch by changing the \input line in frontmatter.tex.
+%
+% Assumes the following are defined in metadata.tex:
+%   \documentTitle, \authorName, \supervisorName, \departmentName,
+%   \universityName, \degreeName, \submissionDate, \logoPath
+%
+% Fallbacks: if any dissertation field is missing from metadata.tex,
+% the \providecommand lines below supply a visible placeholder so this
+% page always compiles. Set the real values in metadata.tex.
+% ====================================================================
+
+\providecommand*{\supervisorName}{[supervisor name]}
+\providecommand*{\departmentName}{[department name]}
+\providecommand*{\universityName}{[university name]}
+\providecommand*{\degreeName}{[degree name]}
+\providecommand*{\submissionDate}{[submission date]}
+
+\begin{titlepage}
+  \centering
+  \setlength{\parindent}{0pt}
+
+  \vspace*{1cm}
+
+  % --------------------------------------------------
+  % University logo
+  % --------------------------------------------------
+  \includegraphics[width=0.35\textwidth]{\logoPath}
+
+  \vspace{2cm}
+
+  % --------------------------------------------------
+  % Title
+  % --------------------------------------------------
+  {\LARGE\textbf{\documentTitle}\par}
+
+  \vspace{0.5cm}
+  \hrule height 1pt
+  \vspace{2cm}
+
+  % --------------------------------------------------
+  % Author
+  % --------------------------------------------------
+  {\large by\par}
+  \vspace{0.3cm}
+  {\Large\textbf{\authorName}\par}
+
+  \vfill
+
+  % --------------------------------------------------
+  % Submission statement
+  % --------------------------------------------------
+  {\large A dissertation submitted in partial fulfilment\par
+   of the requirements for the degree of\par}
+  \vspace{0.3cm}
+  {\large\textbf{\degreeName}\par}
+
+  \vspace{1.5cm}
+
+  % --------------------------------------------------
+  % Supervisor and department
+  % --------------------------------------------------
+  \begin{tabular}{rl}
+    Supervisor: & \supervisorName \\
+    Department: & \departmentName \\
+  \end{tabular}
+
+  \vspace{1cm}
+
+  {\large \universityName \par}
+  \vspace{0.3cm}
+  {\large \submissionDate \par}
+
+  \vspace*{1cm}
+\end{titlepage}

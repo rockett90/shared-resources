@@ -80,14 +80,12 @@ Between them they use most of what the template offers:
   plots built straight from the simulation's CSV files, a code listing pulled
   from the real source file, and two appendices.
 
-Each example folder holds only the files that differ from the template, which
-makes them a good guide to what you would change for a document of your own.
-To build one yourself, copy the template and then copy the example folder over
-the top. There is also a script that does this for both and refreshes the PDFs
-and preview images:
+Each example folder is a complete project, so you can take one as it is and
+use it as the start of your own document. Build it from inside its folder in
+the usual way:
 
 ```bash
-bash examples/build-examples.sh
+latexmk -pdf main
 ```
 
 ## What the built document contains
