@@ -67,12 +67,9 @@ like with real content in it and not placeholder text.
   <img src="examples/dissertation-preview.png" width="330" alt="Title page of the dissertation example">
 </p>
 
-The company, the university and the author are made up, but the engineering
-is worked through properly. The filter values and tolerance figures in the
-design note are calculated, and the results in the dissertation come from a
-simulation script that is included with it, so the numbers in the text, the
-tables and the plots all agree. There is more on how they were put together
-in [examples/README.md](examples/README.md).
+They are there to show how a finished document looks, and how the template is
+used to make one. The company, the university and the author in them are made
+up. [examples/README.md](examples/README.md) has more on them.
 
 Between them they use most of what the template offers:
 

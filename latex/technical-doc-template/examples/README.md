@@ -27,10 +27,10 @@ A few things follow from that, which are worth knowing before you read them:
 - The company, the university, the author and the supervisor named in the
   documents are made up. "Example Electronics Ltd" and the "University of
   Example" do not exist.
-- The engineering is worked through and not invented. The filter values and
-  the tolerance figures in the design note are calculated from the equations
-  in it, and the results in the dissertation are the output of the simulation
-  in `dissertation/assets/code/python/`, which you can run yourself.
+- The filter values and the tolerance figures in the design note are
+  calculated from the equations in it, and the results in the dissertation
+  are the output of the simulation in `dissertation/assets/code/python/`,
+  which you can run yourself.
 - Nothing was built or measured. The design note says so, and gives a test
   plan where the results would go. The dissertation is a simulation study and
   says what that leaves out.
