@@ -17,11 +17,32 @@
 \draftmodetrue
 
 % --------------------------------------------------
+% Front matter switches
+% --------------------------------------------------
+% Choose which parts appear before the first section. Change "true" to
+% "false", or the other way, to switch a part on or off. Nothing else
+% needs editing, as frontmatter.tex reads these.
+\newif\ifshowrevisions        \showrevisionstrue          % revision control table
+\newif\ifshowlists            \showliststrue              % lists of figures and tables
+\newif\ifshownomenclature     \shownomenclaturetrue       % nomenclature
+
+% Dissertation parts. All off for an ordinary technical document.
+\newif\ifdissertationtitle    \dissertationtitlefalse     % dissertation title page, in place of the standard one
+\newif\ifshowdeclaration      \showdeclarationfalse       % declaration of authorship
+\newif\ifshowabstract         \showabstractfalse          % abstract
+\newif\ifshowacknowledgements \showacknowledgementsfalse  % acknowledgements
+
+% --------------------------------------------------
 % Core document fields
 % --------------------------------------------------
 \newcommand*{\documentType}{Technical Document}        % document type, used on the front page
 \newcommand*{\documentTitle}{Your Document Title}       % document title, used on the front page
 %\newcommand*{\documentSubtitle}{Hardware Design Specification}  % not currently in use
+
+% Title shown in the centre of the page footer. It is the full title
+% unless you give a shorter one here, which a long title needs, as it
+% would otherwise run into the text either side of it.
+\newcommand*{\documentShortTitle}{\documentTitle}
 
 \newcommand*{\issueNumber}{Issue 0A}        % front page and footer
 \newcommand*{\releaseDate}{July 2025}       % front page
@@ -42,6 +63,11 @@
 % Logo width on the standard title page, as a fraction of the logo box
 % (the left 40% of the top row). Adjust to suit the logo's proportions.
 \newcommand*{\logoWidth}{0.75\linewidth}
+
+% Key figure at the bottom of the standard title page: the path of a
+% figure file to \input, without the .tex. Leave the braces empty for a
+% title page with no key figure.
+\newcommand*{\keyFigurePath}{assets/figures/circuits/circuitDiagram}
 
 % --------------------------------------------------
 % Dissertation-specific fields

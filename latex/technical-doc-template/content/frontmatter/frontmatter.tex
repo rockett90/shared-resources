@@ -6,16 +6,20 @@
 %   - Table of contents
 %   - (optionally) lists, nomenclature, etc.
 %   - Page Numbering
+%
+% Each optional part is switched on or off in metadata.tex, under
+% "Front matter switches". This file does not need editing unless you
+% want to change the order of the parts.
 % ====================================================================
 
 % --------------------------------------------------
 % Title Page
 % --------------------------------------------------
-% Standard technical-document title page:
-\input{content/frontmatter/titlepage/titlePage}
-% Dissertation variant (uncomment the line below and comment out the one
-% above to use a university dissertation-style title page):
-% \input{content/frontmatter/titlepage/titlePage-dissertation}
+\ifdissertationtitle
+  \input{content/frontmatter/titlepage/titlePage-dissertation}
+\else
+  \input{content/frontmatter/titlepage/titlePage}
+\fi
 \clearpage
 
 % Use uppercase Roman numerals (I, II, III, ...) for the front matter
@@ -24,26 +28,34 @@
 % --------------------------------------------------
 % Declaration of Authorship (optional, dissertation use)
 % --------------------------------------------------
-% \input{content/frontmatter/declaration}
-% \clearpage
+\ifshowdeclaration
+  \input{content/frontmatter/declaration}
+  \clearpage
+\fi
 
 % --------------------------------------------------
 % Abstract (optional, common for dissertations and research reports)
 % --------------------------------------------------
-% \input{content/frontmatter/abstract}
-% \clearpage
+\ifshowabstract
+  \input{content/frontmatter/abstract}
+  \clearpage
+\fi
 
 % --------------------------------------------------
 % Acknowledgements (optional, dissertation use)
 % --------------------------------------------------
-% \input{content/frontmatter/acknowledgements}
-% \clearpage
+\ifshowacknowledgements
+  \input{content/frontmatter/acknowledgements}
+  \clearpage
+\fi
 
 % --------------------------------------------------
 % Revision Control Table (optional)
 % --------------------------------------------------
-\input{content/frontmatter/revisionControl}
-\clearpage
+\ifshowrevisions
+  \input{content/frontmatter/revisionControl}
+  \clearpage
+\fi
 
 % --------------------------------------------------
 % Table of Contents
@@ -54,15 +66,19 @@
 % --------------------------------------------------
 % List of Tables and List of Figures (optional)
 % --------------------------------------------------
-\input{content/frontmatter/lists}
-\clearpage
+\ifshowlists
+  \input{content/frontmatter/lists}
+  \clearpage
+\fi
 
 % --------------------------------------------------
 % Nomenclature (optional)
 % --------------------------------------------------
-\input{content/frontmatter/nomenclature}
-\printnomenclature
-\clearpage
+\ifshownomenclature
+  \input{content/frontmatter/nomenclature}
+  \printnomenclature
+  \clearpage
+\fi
 
 % Use Arabic numerals (1, 2, 3, ...) for the main body of the document
 \pagenumbering{arabic}

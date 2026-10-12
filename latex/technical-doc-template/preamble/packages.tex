@@ -109,6 +109,16 @@
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
 
+% After \appendix, make \cref call a section "appendix A" and not
+% "section A". cleveref is meant to do this itself, but does not here.
+\makeatletter
+\g@addto@macro\appendix{%
+  \crefalias{section}{appendix}%
+  \crefalias{subsection}{appendix}%
+  \crefalias{subsubsection}{appendix}%
+}
+\makeatother
+
 % --------------------------------------------------
 % Nomenclature
 % --------------------------------------------------

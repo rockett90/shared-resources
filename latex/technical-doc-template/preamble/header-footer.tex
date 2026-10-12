@@ -5,7 +5,8 @@
 %
 % Assumes:
 %   - fancyhdr is loaded in packages.tex
-%   - \companyName, \documentTitle, \issueNumber are defined in metadata.tex
+%   - \companyName, \documentShortTitle, \issueNumber are defined in
+%     metadata.tex
 % ====================================================================
 
 \pagestyle{fancy}
@@ -33,5 +34,5 @@
 \renewcommand{\footrulewidth}{1.5pt}
 
 \lfoot{\issueNumber}
-\cfoot{\documentTitle}                        % document title in centre footer
+\cfoot{\documentShortTitle}                   % title in centre footer (short form, if one is set)
 \rfoot{Page: \thepage}

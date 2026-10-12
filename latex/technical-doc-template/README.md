@@ -67,11 +67,14 @@ like with real content in it and not placeholder text.
   <img src="examples/dissertation-preview.png" width="330" alt="Title page of the dissertation example">
 </p>
 
-The company, the university and the author are made up, but the engineering
-is worked through properly. The filter values and tolerance figures in the
-design note are calculated, and the results in the dissertation come from a
-simulation script that is included with it, so the numbers in the text, the
-tables and the plots all agree.
+The content of both was developed by Claude Opus 5.5, an AI model made by
+Anthropic, which I asked to use the template and write them as examples. The
+company, the university and the author named in them are made up. The
+engineering is worked through properly all the same: the filter values and
+tolerance figures in the design note are calculated, and the results in the
+dissertation come from a simulation script that is included with it, so the
+numbers in the text, the tables and the plots all agree. There is more on
+this in [examples/README.md](examples/README.md).
 
 Between them they use most of what the template offers:
 
@@ -124,7 +127,7 @@ main.tex                      the file you compile, lists everything below
 
 preamble/                     setup, loaded before the document starts
   packages.tex                every \usepackage, in one place
-  metadata.tex                title, issue, date, author, logo, draft switch
+  metadata.tex                title, issue, date, author, logo, and the on/off switches
   macros.tex                  shortcuts such as \Vin, \dd and \todo
   layout.tex                  table helpers, heading and contents depth
   header-footer.tex           what runs along the top and bottom of each page
@@ -133,7 +136,7 @@ preamble/                     setup, loaded before the document starts
 
 content/
   frontmatter/
-    frontmatter.tex           the order of the front matter, switch parts on and off here
+    frontmatter.tex           the order of the front matter
     titlepage/
       titlePage.tex           the standard title page
       overview.tex            the overview paragraph on the title page
@@ -162,8 +165,8 @@ You will not need most of these for most documents. As a guide:
 | How often | Files |
 |---|---|
 | Every document | `preamble/metadata.tex`, `titlepage/overview.tex`, the files in `content/sections/`, `main.tex` (to list your sections), `revisionControl.tex` |
-| When you need them | `bib/mybib.bib`, `nomenclature.tex`, `preamble/macros.tex`, `frontmatter.tex`, the key figure in `titlePage.tex` |
-| Rarely | `packages.tex`, `layout.tex`, `header-footer.tex`, `styling.tex`, `watermark.tex` |
+| When you need them | `bib/mybib.bib`, `nomenclature.tex`, `preamble/macros.tex` |
+| Rarely | `packages.tex`, `layout.tex`, `header-footer.tex`, `styling.tex`, `watermark.tex`, `frontmatter.tex`, `titlePage.tex` |
 
 ## Writing your document
 
@@ -177,21 +180,34 @@ change a title or a date.
 |---|---|---|
 | `\documentType` | The kind of document, for example "Test Report" | Top right of the title page |
 | `\documentTitle` | The title | Title page, centre of the footer, the PDF's title |
+| `\documentShortTitle` | A shorter title, for when the full one is too long for the footer | Centre of the footer, in place of the full title |
 | `\issueNumber` | The current issue | Title page, left of the footer, revision table |
 | `\releaseDate` | The date of that issue | Title page, revision table |
 | `\authorName` | You, or your team | The PDF's author, and the dissertation pages |
 | `\companyName` | Your company or organisation | Left of the header |
 | `\documentNumber` | An internal document number | Nowhere by default, `preamble/header-footer.tex` shows where to add it to the header |
 | `\logoPath`, `\logoWidth` | The logo file and how wide to draw it | Title page |
+| `\keyFigurePath` | The figure shown at the bottom of the title page | Title page |
+
+The same file holds the switches that turn parts of the document on and off,
+which are covered under [Leaving parts out](#leaving-parts-out),
+[Draft mode](#draft-mode) and
+[Using it for a dissertation](#using-it-for-a-dissertation).
 
 ### The title page
 
 The title page takes its text from `metadata.tex`, apart from two things. The
 overview paragraph is in `content/frontmatter/titlepage/overview.tex`, so
 replace the placeholder there with a few sentences on what the document covers.
-The key figure at the bottom is set at the end of `titlePage.tex`, where you
-can point the `\input` line at a figure of your own, or delete the whole block
-if you do not want one.
+The key figure at the bottom is one of your figure files, named by
+`\keyFigurePath` in `metadata.tex`:
+
+```latex
+\newcommand*{\keyFigurePath}{assets/figures/diagrams/blockDiagram}
+```
+
+Leave the braces empty if you do not want one, and the heading goes along with
+the figure.
 
 To use your own logo, put the file in `assets/logos/` and change `\logoPath`.
 Logos come in different shapes, so adjust `\logoWidth` until it looks right.
@@ -287,7 +303,8 @@ then refer to it by that label and let LaTeX keep the numbers right:
 | `\Vref{fig:bench-setup}` | Figure 2 on the next page |
 
 These commands write the word "figure" or "section" for you, so do not type it
-yourself or it will appear twice.
+yourself or it will appear twice. A reference to an appendix comes out as
+"appendix A".
 
 ### References
 
@@ -331,10 +348,19 @@ They are lettered A, B, C for you.
 
 ### Leaving parts out
 
-If you do not need the revision table, the lists of figures and tables, or the
-nomenclature, open `content/frontmatter/frontmatter.tex` and comment out that
-part's lines, including the `\clearpage` beneath it. For the nomenclature that
-is three lines, as it has a `\printnomenclature` as well.
+The revision table, the lists of figures and tables, and the nomenclature each
+have a switch near the top of `preamble/metadata.tex`. Change `true` to `false`
+on the end of the name to leave that part out:
+
+```latex
+\newif\ifshowrevisions        \showrevisionstrue          % revision control table
+\newif\ifshowlists            \showlistsfalse             % lists of figures and tables
+\newif\ifshownomenclature     \shownomenclaturetrue       % nomenclature
+```
+
+In that example the lists of figures and tables are switched off. Nothing else
+needs editing. `content/frontmatter/frontmatter.tex` only needs opening if you
+want the parts in a different order.
 
 ## Draft mode
 
@@ -388,25 +414,28 @@ without any other changes.
 The template also has a dissertation title page, a declaration of authorship,
 an abstract and acknowledgements. They are switched off by default. The
 dissertation in [Worked examples](#worked-examples) has all four switched on,
-so you can see the result first, and its `frontmatter.tex` shows the changes
+so you can see the result first, and its `metadata.tex` shows the changes
 described below.
 
-To switch them on, open `content/frontmatter/frontmatter.tex`:
+Everything is done in `preamble/metadata.tex`:
 
-1. Swap the title page, by commenting out the standard one and uncommenting
-   the dissertation one:
+1. Switch the four parts on, by changing `false` to `true` on each. A
+   dissertation has no revision table, so switch that one off:
 
    ```latex
-   % \input{content/frontmatter/titlepage/titlePage}
-   \input{content/frontmatter/titlepage/titlePage-dissertation}
+   \newif\ifshowrevisions        \showrevisionsfalse         % revision control table
+
+   \newif\ifdissertationtitle    \dissertationtitletrue      % dissertation title page
+   \newif\ifshowdeclaration      \showdeclarationtrue        % declaration of authorship
+   \newif\ifshowabstract         \showabstracttrue           % abstract
+   \newif\ifshowacknowledgements \showacknowledgementstrue   % acknowledgements
    ```
 
-2. Uncomment the declaration of authorship, the abstract and the
-   acknowledgements. Each is an `\input` line with a `\clearpage` beneath it,
-   and both lines need uncommenting.
-3. In `preamble/metadata.tex`, fill in the dissertation fields: supervisor,
-   department, university, degree and submission date, along with your name in
+2. Fill in the dissertation fields further down: supervisor, department,
+   university, degree and submission date, along with your name in
    `\authorName`.
+3. If your title is long, give a shorter one in `\documentShortTitle` for the
+   footer.
 4. Write your abstract and acknowledgements in `abstract.tex` and
    `acknowledgements.tex`, in `content/frontmatter/`.
 5. Set `\draftmodefalse` before you submit.
@@ -430,9 +459,10 @@ common things work without you having to go looking for a package. The ones
 you can safely remove are marked `[OPTIONAL]` in `preamble/packages.tex`.
 
 If your document has no circuits or timing diagrams, remove `circuitikz` and
-`tikz-timing`, and delete the examples that use them from
-`content/sections/introduction.tex` and the key figure from the title page,
-otherwise the build will stop on the missing commands. `blindtext` and `lipsum`
+`tikz-timing`, delete the examples that use them from
+`content/sections/introduction.tex`, and empty `\keyFigurePath` in
+`metadata.tex`, as the example key figure is a circuit. Otherwise the build
+will stop on the missing commands. `blindtext` and `lipsum`
 only produce placeholder text, so they can go once your own text is in.
 
 `minted` gives better-looking code than `listings`, but it is commented out
@@ -448,7 +478,7 @@ because it needs Python with Pygments installed, and a build with
 | References show as `??` | LaTeX needs another pass to settle the numbers. Build again |
 | `Undefined control sequence \qty` | Your `siunitx` is older than version 3. Update your TeX distribution |
 | The logo is not found | Check `\logoPath` in `metadata.tex`. File names are case sensitive on Linux and Overleaf, so `Logo.png` and `logo.png` are different files |
-| The title runs into the text either side of it in the footer | The title is too long for the centre of the footer. Shorten `\documentTitle`, or change what `\cfoot` shows in `preamble/header-footer.tex` |
+| The title runs into the text either side of it in the footer | The title is too long for the centre of the footer. Give a shorter one in `\documentShortTitle` in `metadata.tex`, which is used in the footer only |
 | Errors mentioning `minted` | It needs Pygments and a build with `-shell-escape`, see [Slimming it down](#slimming-it-down) |
 
 ## Requirements
