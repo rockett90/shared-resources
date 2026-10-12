@@ -1,0 +1,29 @@
+% ====================================================================
+% introduction.tex (design note example)
+% ====================================================================
+
+\section{Introduction}
+\label{sec:introduction}
+
+\lettrine[lines=2, slope=0em, loversize=0.14, nindent=0pt, lhang=0.3, lraise=0]{T}{HE}
+sensor channel on this board is sampled by the microcontroller's 12-bit ADC at
+\qty{10}{\kilo\hertz}. Any signal or interference above half the sample rate
+is not removed by sampling, it is folded back into the wanted band where it
+cannot be told apart from the real signal, so it has to be filtered out before
+the converter and not afterwards in firmware~\cite{horowitz_hill_2015}.
+
+This note records the design of that filter. It covers the requirements the
+filter has to meet in \cref{sec:requirements}, the circuit and the choice of
+component values in \cref{sec:design}, the performance predicted from those
+values across component tolerance in \cref{sec:performance}, how the firmware
+samples the filtered signal in \cref{sec:firmware}, and the tests planned for
+the first boards in \cref{sec:verification}.
+
+\subsection{Scope}
+
+The note covers the filter stage only, from the output of the sensor amplifier
+to the ADC pin, as shown in \cref{fig:signalChain} on the title page. The
+sensor amplifier and the digital processing that follows the converter are
+covered in their own documents. All of the performance figures here are
+calculated, as no boards have been built at this issue, and
+\cref{sec:verification} lists what will be measured to confirm them.

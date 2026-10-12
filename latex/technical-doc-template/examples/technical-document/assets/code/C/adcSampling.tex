@@ -1,0 +1,33 @@
+% ====================================================================
+% adcSampling.tex
+% --------------------------------------------------------------------
+% Timer-triggered ADC sampling. The hardware functions are placeholders
+% for those of the target microcontroller's own library.
+% ====================================================================
+
+\begin{lstlisting}[caption={Timer-triggered sampling into a ring buffer.}, label={lst:adcSampling}, language=C]
+#define SAMPLE_RATE_HZ  10000u
+#define BUFFER_LENGTH   256u
+
+static volatile uint16_t buffer[BUFFER_LENGTH];
+static volatile uint16_t head;
+
+/* Called once at start-up. The timer starts a conversion every
+   100 us, so the sample rate does not depend on the main loop. */
+void sampling_init(void)
+{
+    adc_select_channel(ADC_CHANNEL_SENSOR);
+    adc_set_trigger(ADC_TRIGGER_TIMER);
+    adc_enable_interrupt();
+
+    timer_set_period_us(1000000u / SAMPLE_RATE_HZ);
+    timer_start();
+}
+
+/* End-of-conversion interrupt: store the result and move on. */
+void adc_isr(void)
+{
+    buffer[head] = adc_read_result();
+    head = (head + 1u) % BUFFER_LENGTH;
+}
+\end{lstlisting}

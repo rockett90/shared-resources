@@ -1,0 +1,42 @@
+% ====================================================================
+% appendix_a.tex (design note example)
+% ====================================================================
+
+\section{Derivation of the Transfer Function}
+\label{app:derivation}
+
+This appendix derives \cref{eq:transferFunction} for the circuit in
+\cref{fig:filterCircuit}. Let $V_A$ be the voltage at the junction of $R_1$
+and $R_2$. The op-amp is connected as a follower, so the voltage at its
+non-inverting input is equal to $\Vout$, and no current flows into that input.
+
+The current through $R_2$ can therefore only flow into $C_2$, which gives
+
+\begin{equation}
+  \frac{V_A - \Vout}{R_2} = s C_2 \Vout
+  \quad\Longrightarrow\quad
+  V_A = \Vout\,(1 + s R_2 C_2).
+\end{equation}
+
+At the junction, the current arriving through $R_1$ leaves through $R_2$ and
+through $C_1$, whose other end is at $\Vout$:
+
+\begin{equation}
+  \frac{\Vin - V_A}{R_1} = \frac{V_A - \Vout}{R_2} + s C_1 (V_A - \Vout).
+\end{equation}
+
+From the first result, $V_A - \Vout = s R_2 C_2 \Vout$. Substituting this into
+the second equation and multiplying through by $R_1$ gives
+
+\begin{equation}
+  \Vin - V_A = \Vout \left( s R_1 C_2 + s^2 R_1 R_2 C_1 C_2 \right),
+\end{equation}
+and replacing $V_A$ once more leaves
+
+\begin{equation}
+  \Vin = \Vout \left( 1 + s C_2 (R_1 + R_2) + s^2 R_1 R_2 C_1 C_2 \right),
+\end{equation}
+which rearranges to \cref{eq:transferFunction}. Setting the coefficients equal
+to those of the standard form,
+$1 + s/(Q\omega_0) + s^2/\omega_0^2$, gives \cref{eq:naturalFrequency} and
+\cref{eq:qualityFactor}.

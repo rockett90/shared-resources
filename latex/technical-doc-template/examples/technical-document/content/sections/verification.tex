@@ -1,0 +1,57 @@
+% ====================================================================
+% verification.tex (design note example)
+% ====================================================================
+
+\section{Verification Plan}
+\label{sec:verification}
+
+No boards have been built at this issue, so this section lists the tests that
+will be carried out on the first ones, and the result each has to give for
+the design to pass. The measured results will be added at the next issue.
+
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{\textwidth}{@{} l X X @{}}
+\toprule
+\textbf{Test} & \textbf{Method} & \textbf{Pass criterion} \\
+\midrule
+T1 & Apply DC levels of \qty{0.3}{\volt}, \qty{1.65}{\volt} and
+     \qty{3.0}{\volt} to the input and measure the output.
+   & Output within \qty{1}{\percent} of the input at each level. \\
+\addlinespace
+T2 & Apply a \qty{100}{\milli\volt} rms sine wave on a \qty{1.65}{\volt}
+     offset, and step it from \qty{50}{\hertz} to \qty{500}{\hertz}.
+   & Gain within \qty{1}{\decibel} of the DC gain at every step
+     (requirement R4). \\
+\addlinespace
+T3 & Raise the same sine wave to \qty{1}{\volt} rms and measure the gain at
+     \qty{9.5}{\kilo\hertz}, then at \qty{20}{\kilo\hertz},
+     \qty{50}{\kilo\hertz} and \qty{100}{\kilo\hertz}.
+   & At least \qty{35}{\decibel} of attenuation at \qty{9.5}{\kilo\hertz}
+     (requirement R5), and no less than that at the higher frequencies. \\
+\addlinespace
+T4 & With the firmware running, toggle a spare pin in the interrupt routine
+     and measure the period on an oscilloscope.
+   & A period of \qty{100}{\micro\second}, with no visible jitter at
+     \qty{1}{\micro\second} per division. \\
+\bottomrule
+\end{tabularx}
+\caption{Tests planned for the first boards.}
+\label{tab:tests}
+\end{table}
+
+Test T3 is taken beyond \qty{9.5}{\kilo\hertz} to find the point where the
+attenuation stops increasing, as described at the end of
+\cref{sec:performance}. If it turns out to fall below \qty{35}{\decibel}
+within the range tested, the fix would be an op-amp with a wider bandwidth,
+which is a change of part and not of the board.
+
+\subsection{Open items}
+
+\begin{itemize}
+  \item The \qty{-40}{dBFS} limit on interference at the filter input, used
+        in \cref{sec:requirements}, is an estimate. It should be measured on
+        the first assembled unit, in its enclosure.
+  \item The op-amp is specified by its parameters and not yet by a part
+        number, which is to be fixed once stock and price have been checked.
+\end{itemize}

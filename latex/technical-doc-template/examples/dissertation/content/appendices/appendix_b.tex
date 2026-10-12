@@ -1,0 +1,27 @@
+% ====================================================================
+% appendix_b.tex (dissertation example)
+% ====================================================================
+
+\section{Results of the Static Test}
+\label{app:results}
+
+\Cref{tab:dcResults} gives the figures plotted in \cref{fig:dcError}. Each is
+the rms error, in LSB, over 2000 static input levels.
+
+\begin{table}[htbp]
+\centering
+\pgfplotstabletypeset[
+  col sep=comma,
+  columns={osr,n000,n025,n050,n100},
+  columns/osr/.style={column name={Oversampling ratio}, column type=r},
+  columns/n000/.style={column name={No noise}, fixed, fixed zerofill, precision=3, column type=r},
+  columns/n025/.style={column name={0.25 LSB}, fixed, fixed zerofill, precision=3, column type=r},
+  columns/n050/.style={column name={0.5 LSB}, fixed, fixed zerofill, precision=3, column type=r},
+  columns/n100/.style={column name={1.0 LSB}, fixed, fixed zerofill, precision=3, column type=r},
+  every head row/.style={before row=\toprule, after row=\midrule},
+  every last row/.style={after row=\bottomrule},
+]{assets/data/dc_error.csv}
+\caption{Error in the averaged result for static inputs, in LSB rms, at each
+level of input noise.}
+\label{tab:dcResults}
+\end{table}

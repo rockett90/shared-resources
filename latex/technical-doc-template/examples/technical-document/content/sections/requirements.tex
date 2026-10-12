@@ -1,0 +1,51 @@
+% ====================================================================
+% requirements.tex (design note example)
+% ====================================================================
+
+\section{Requirements}
+\label{sec:requirements}
+
+The requirements for the filter are listed in \cref{tab:requirements}. They
+come from the sensor, which produces signals from DC up to
+\qty{500}{\hertz}, and from the converter, which samples at
+\qty{10}{\kilo\hertz}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Ref.} & \textbf{Requirement} & \textbf{Value} \\
+\midrule
+R1 & Supply           & Single \qty{3.3}{\volt} rail, shared with the microcontroller \\
+R2 & Signal band      & DC to \qty{500}{\hertz} \\
+R3 & Sample rate      & \qty{10}{\kilo\hertz}, fixed by the firmware \\
+R4 & Passband gain    & \qty{0}{\decibel}, flat to within \qty{1}{\decibel} over the signal band \\
+R5 & Stopband         & At least \qty{35}{\decibel} of attenuation at \qty{9.5}{\kilo\hertz} \\
+R6 & Parts            & One op-amp, with resistors and capacitors from standard value series \\
+\bottomrule
+\end{tabularx}
+\caption{Requirements for the anti-aliasing filter.}
+\label{tab:requirements}
+\end{table}
+
+\subsection{Where the stopband figure comes from}
+
+With a sample rate $f_s$ of \qty{10}{\kilo\hertz}, the frequencies that fold
+back onto the signal band of 0 to \qty{500}{\hertz} are those between
+\qty{9.5}{\kilo\hertz} and \qty{10.5}{\kilo\hertz}. A low-pass filter
+attenuates the bottom of that range the least, so \qty{9.5}{\kilo\hertz} is
+the frequency the requirement is set at.
+
+An ideal 12-bit converter has a signal-to-noise ratio of
+
+\begin{equation}
+  \label{eq:idealSnr}
+  \mathrm{SNR} = 6.02N + 1.76 = \qty{74}{\decibel}
+  \quad\text{for } N = 12,
+\end{equation}
+so an aliased signal does no harm once it is more than \qty{74}{\decibel}
+below full scale, as it is then smaller than the converter's own quantisation
+noise. The interference expected at the filter input is no larger than
+\qty{-40}{dBFS}, which means \qty{35}{\decibel} of attenuation takes it to
+\qty{-75}{dBFS}, just under that floor. A larger figure would need a
+higher-order filter and a second op-amp, which requirement R6 rules out.

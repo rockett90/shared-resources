@@ -1,0 +1,70 @@
+% ====================================================================
+% performance.tex (design note example)
+% ====================================================================
+
+\section{Predicted Performance}
+\label{sec:performance}
+
+\subsection{Frequency response}
+
+Substituting $s = \mathrm{j}2\pi f$ into \cref{eq:transferFunction} gives the
+magnitude of the response at any frequency,
+
+\begin{equation}
+  \label{eq:magnitude}
+  \lvert H(f) \rvert =
+  \frac{1}{\sqrt{\bigl(1 - (f/f_0)^2\bigr)^2 + \bigl(f/(Q f_0)\bigr)^2}},
+\end{equation}
+which is plotted in \cref{fig:filterResponse} for the nominal component
+values. The response is \qty{0.27}{\decibel} down at the top of the signal
+band and \qty{39.2}{\decibel} down at \qty{9.5}{\kilo\hertz}, so both
+requirements are met with the nominal values.
+
+\input{assets/figures/plots/filterResponse}
+
+\subsection{Effect of component tolerance}
+
+The nominal figures only show that the design is sound on paper, as every
+board will be built with parts that are a little off their marked values. The
+response was therefore recalculated with each of the four values at either
+end of its tolerance band, which gives sixteen combinations, and the worst
+result from those is shown against the requirement in \cref{tab:tolerance}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{\textwidth}{@{} X l l l @{}}
+\toprule
+\textbf{Quantity} & \textbf{Requirement} & \textbf{Nominal} & \textbf{Worst case} \\
+\midrule
+Natural frequency, $f_0$                 & n/a                    & \qty{996}{\hertz}    & \qtyrange{939}{1059}{\hertz} \\
+Quality factor, $Q$                      & n/a                    & 0.707                & 0.673 to 0.743 \\
+Gain at \qty{500}{\hertz}                & Within \qty{1}{\decibel} & \qty{-0.27}{\decibel} & \qty{-0.49}{\decibel} \\
+Peaking in the passband                  & Within \qty{1}{\decibel} & None                 & \qty{0.04}{\decibel} \\
+Attenuation at \qty{9.5}{\kilo\hertz}    & \qty{35}{\decibel} or more & \qty{39.2}{\decibel} & \qty{38.1}{\decibel} \\
+\bottomrule
+\end{tabularx}
+\caption{Predicted performance at the nominal values and at the worst
+combination of component tolerances.}
+\label{tab:tolerance}
+\end{table}
+
+The stopband requirement is met with \qty{3.1}{\decibel} in hand in the worst
+case, and the passband stays within half a decibel. The natural frequency
+moves by about six per cent either way, almost all of which is due to the
+capacitors, so tighter resistors would gain very little.
+
+Taking every part to its limit at once is pessimistic, so the calculation was
+repeated as a Monte Carlo run of 20,000 builds, with each value drawn at
+random from within its tolerance band. The standard deviation of $f_0$ was
+\qty{21}{\hertz}, and no build fell outside the worst-case figures in
+\cref{tab:tolerance}.
+
+\subsection{Limits of this analysis}
+
+These figures assume an ideal op-amp. In a real Sallen-Key filter the
+attenuation does not keep increasing with frequency, because at high
+frequencies the op-amp's output impedance rises and the input signal reaches
+the output through $C_1$~\cite{karki_sallen_key_2002}. With the part
+specified this is expected to matter only well above \qty{10}{\kilo\hertz},
+but it cannot be confirmed by calculation alone, so it is one of the things
+the tests in \cref{sec:verification} are there to check.

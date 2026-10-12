@@ -1,0 +1,60 @@
+% ====================================================================
+% results.tex (dissertation example)
+% ====================================================================
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Test 1: sine wave input}
+
+The results of the sine wave test are given in \cref{tab:enobResults} and
+plotted in \cref{fig:enobVsOsr}. The table is built from the file written by
+the simulation, so the figures in it are exactly those the model produced.
+
+\begin{table}[htbp]
+\centering
+\pgfplotstabletypeset[
+  col sep=comma,
+  columns={osr,theory,sim,error},
+  columns/osr/.style={column name={Oversampling ratio}, column type=r},
+  columns/theory/.style={column name={Theory (bits)}, fixed, fixed zerofill, precision=2, column type=r},
+  columns/sim/.style={column name={Simulated (bits)}, fixed, fixed zerofill, precision=2, column type=r},
+  columns/error/.style={column name={Error (LSB rms)}, fixed, fixed zerofill, precision=3, column type=r},
+  every head row/.style={before row=\toprule, after row=\midrule},
+  every last row/.style={after row=\bottomrule},
+]{assets/data/enob_vs_osr.csv}
+\caption{Effective resolution for a sine wave input with \qty{0.5}{LSB} rms of
+noise, compared with the prediction of \cref{eq:enobTheory}.}
+\label{tab:enobResults}
+\end{table}
+
+With no averaging the model gave 10.97 bits against a predicted 11.00, which
+confirms that the noise and the quantisation error combine as
+\cref{eq:averagedError} assumes. The resolution then rose by one bit for each
+factor of four in oversampling ratio, reaching 15.00 bits at a ratio of 256.
+The largest difference from the prediction at any ratio was 0.03 bits.
+
+\input{assets/figures/plots/enobVsOsr}
+
+\subsection{Test 2: static inputs}
+
+\Cref{fig:dcError} shows the rms error for static inputs at each of the four
+noise levels, with the full figures in Appendix~\ref{app:results}. The three
+cases behave quite differently.
+
+\input{assets/figures/plots/dcError}
+
+With no noise the error stayed between 0.28 and \qty{0.29}{LSB} at every
+ratio. This is the value of $q/\sqrt{12}$ from \cref{eq:quantisationNoise},
+which means averaging 256 readings gave the same result as taking one.
+
+With \qty{0.5}{LSB} and \qty{1.0}{LSB} of noise the error fell in proportion
+to $1/\sqrt{M}$ across the whole range, following \cref{eq:averagedError}. At
+a ratio of 256 the errors were \qty{0.036}{LSB} and \qty{0.067}{LSB}, which
+correspond to 15.0 and 14.1 effective bits.
+
+With \qty{0.25}{LSB} of noise the error fell at first, from
+\qty{0.39}{LSB} to \qty{0.20}{LSB} at a ratio of 4, but then levelled out. At
+a ratio of 256 it was \qty{0.070}{LSB}, about three times the
+\qty{0.024}{LSB} that \cref{eq:averagedError} predicts, and little better
+than at a ratio of 64.

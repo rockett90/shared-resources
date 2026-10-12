@@ -1,0 +1,35 @@
+% ====================================================================
+% signalChain.tex
+% --------------------------------------------------------------------
+% Block diagram of the sensor channel, used as the key figure on the
+% title page. Drawn with plain TikZ.
+% ====================================================================
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  block/.style={draw, thick, minimum width=2.6cm, minimum height=1.3cm,
+                align=center, font=\small},
+  wanted/.style={block, fill=linkblue!12},
+  >=latex
+]
+  \node[block]  (sensor) at (0,0)    {Sensor\\amplifier};
+  \node[wanted] (filter) at (3.8,0)  {Anti-aliasing\\filter};
+  \node[block]  (adc)    at (7.6,0)  {12-bit\\ADC};
+  \node[block]  (mcu)    at (11.4,0) {Firmware};
+
+  \draw[->, thick] (sensor) -- (filter);
+  \draw[->, thick] (filter) -- (adc);
+  \draw[->, thick] (adc)    -- (mcu);
+
+  \node[font=\footnotesize, below=2pt] at (sensor.south) {DC to \qty{500}{\hertz}};
+  \node[font=\footnotesize, below=2pt] at (filter.south) {$f_0 = \qty{1}{\kilo\hertz}$};
+  \node[font=\footnotesize, below=2pt] at (adc.south)    {$f_s = \qty{10}{\kilo\hertz}$};
+
+  \draw[decorate, decoration={brace, amplitude=6pt}, thick]
+    ([yshift=8pt]filter.north west) -- ([yshift=8pt]filter.north east)
+    node[midway, above=8pt, font=\footnotesize] {covered by this note};
+\end{tikzpicture}
+\caption{The sensor channel, with the stage this note covers shaded.}
+\label{fig:signalChain}
+\end{figure}

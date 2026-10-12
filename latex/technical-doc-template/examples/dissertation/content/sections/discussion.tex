@@ -1,0 +1,84 @@
+% ====================================================================
+% discussion.tex (dissertation example)
+% ====================================================================
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Agreement with theory}
+
+The sine wave test agreed with \cref{eq:enobTheory} to within 0.03 bits at
+every oversampling ratio, which is within what would be expected from a run
+of 4096 samples. This supports both the theory and the model, and it shows
+that for a signal which is itself moving across many codes the method works
+as the textbooks describe.
+
+The static test is the more informative of the two, because it removes the
+help that a moving signal gives. Here the theory held only when there was
+enough noise. With \qty{0.5}{LSB} rms or more, the static results matched the
+sine wave results, so at that level the noise alone is sufficient to make the
+errors independent and the nature of the signal no longer matters.
+
+\subsection{Why a small amount of noise is not enough}
+
+The result at \qty{0.25}{LSB} can be explained by considering an input that
+sits a quarter of the way between two codes. With plenty of noise, the
+readings are spread over several codes in proportions that average out to the
+true value. With only a little, nearly all of the readings return the nearer
+code, and the occasional reading of the further one does not occur often
+enough to pull the average to the right place. The average then settles on a
+value that is wrong by a fixed amount, and because the amount is fixed, more
+averaging does not reduce it.
+
+This is why the curve for \qty{0.25}{LSB} in \cref{fig:dcError} levels out
+and does not continue downwards. The averaging is still removing the random
+part of the error, but what remains is a systematic error that depends on
+where the input sits within the step.
+
+\subsection{The cost of too much noise}
+
+The results also show that noise beyond what is needed is not free. At a
+ratio of 256 the error with \qty{1.0}{LSB} of noise was almost twice that
+with \qty{0.5}{LSB}, which is a loss of nearly one bit, and to recover it the
+ratio would have to be raised by a factor of four. The middle term of
+\cref{eq:enobTheory} predicts exactly this. The guidance to provide at
+least one LSB of noise is therefore safe, but it is not optimal, and a
+designer who can control the noise level would do better to aim for about
+half an LSB.
+
+\subsection{Practical implications}
+
+For a 12-bit converter with a \qty{3.3}{\volt} reference, half an LSB is
+\qty{0.4}{\milli\volt} rms. Many circuits will have this much noise without
+any being added, in which case the method can be used as it is. Whether a
+particular circuit does can be checked very simply, by holding the input
+steady and looking at the spread of the raw codes. If nearly all of them are
+the same code, there is too little noise and dither will have to be added.
+
+The other practical cost is time. An output rate of \qty{100}{\hertz} with a
+ratio of 256 needs the converter to run at \qty{25.6}{\kilo\hertz}, which is
+well within the reach of a typical microcontroller, but the same ratio at an
+output rate of \qty{10}{\kilo\hertz} would need \qty{2.56}{\mega\hertz},
+which is not.
+
+\subsection{Limitations}
+
+The model is of an ideal converter, and three of its simplifications affect
+how far the results can be carried over to a real one.
+
+The first is that the steps of the model are all exactly the same size. A
+real converter has steps of slightly different sizes, described by its
+differential and integral non-linearity, and averaging does nothing to
+correct these, as they are the same on every reading. The 15 bits reached
+here should be read as an upper limit, with the real figure set by the
+linearity of the device in question.
+
+The second is that the noise in the model is Gaussian and unrelated from one
+sample to the next. Noise picked up from a switching power supply or from the
+mains is neither, and noise that repeats in step with the sampling would not
+average away at all.
+
+The third is that a plain average is a poor low-pass filter. It was used
+because it is what most firmware does, but a signal with content close to
+half the output rate would be attenuated by it, and a better decimation
+filter would be needed in that case~\cite{oppenheim_schafer_2010}.

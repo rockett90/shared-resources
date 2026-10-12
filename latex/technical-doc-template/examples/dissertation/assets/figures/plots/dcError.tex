@@ -1,0 +1,52 @@
+% ====================================================================
+% dcError.tex
+% --------------------------------------------------------------------
+% Residual error for static inputs at four noise levels, plotted with
+% pgfplots from the simulation's CSV output. The dashed line is the
+% prediction for 0.5 LSB of noise, sqrt((1/12 + 0.25)/M).
+% ====================================================================
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{loglogaxis}[
+  width=0.88\linewidth,
+  height=8cm,
+  grid=major,
+  log basis x=2,
+  xmin=0.7, xmax=362,
+  ymin=0.02, ymax=2,
+  xtick={1,4,16,64,256},
+  xticklabels={1,4,16,64,256},
+  ytick={0.02,0.05,0.1,0.2,0.5,1,2},
+  yticklabels={0.02,0.05,0.1,0.2,0.5,1,2},
+  xlabel={Oversampling ratio, $M$},
+  ylabel={Error (LSB rms)},
+  legend pos=south west,
+  legend cell align=left,
+  legend style={font=\footnotesize},
+]
+  \addplot[thick, mark=square*, black]
+    table[col sep=comma, x=osr, y=n000] {assets/data/dc_error.csv};
+  \addlegendentry{No noise}
+
+  \addplot[thick, mark=triangle*, orange]
+    table[col sep=comma, x=osr, y=n025] {assets/data/dc_error.csv};
+  \addlegendentry{\qty{0.25}{LSB}}
+
+  \addplot[thick, mark=*, linkblue]
+    table[col sep=comma, x=osr, y=n050] {assets/data/dc_error.csv};
+  \addlegendentry{\qty{0.5}{LSB}}
+
+  \addplot[thick, mark=diamond*, red]
+    table[col sep=comma, x=osr, y=n100] {assets/data/dc_error.csv};
+  \addlegendentry{\qty{1.0}{LSB}}
+
+  \addplot[dashed, gray, domain=1:256, samples=2] {sqrt((1/12 + 0.25)/x)};
+  \addlegendentry{Theory for \qty{0.5}{LSB}}
+\end{loglogaxis}
+\end{tikzpicture}
+\caption{Error in the averaged result for static inputs, at four levels of
+input noise.}
+\label{fig:dcError}
+\end{figure}

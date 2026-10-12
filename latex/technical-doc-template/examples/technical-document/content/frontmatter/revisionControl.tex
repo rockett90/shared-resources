@@ -1,0 +1,34 @@
+% ====================================================================
+% revisionControl.tex
+% --------------------------------------------------------------------
+% Document revision control table (design note example).
+%
+% The last row takes its issue and date from metadata.tex, so it always
+% shows the current issue. Earlier issues are written in as plain rows
+% above it.
+% ====================================================================
+
+\phantomsection
+\markboth{\MakeUppercase{Revision Control}}{}
+\section*{Revision Control}
+\addcontentsline{toc}{section}{Revision Control}
+\label{sec:revisionControl}
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{@{} p{2cm} p{3cm} X @{}}
+\thickhline
+\textbf{Issue} & \textbf{Release Date} & \textbf{Description of Changes} \\
+\thickhline
+
+Issue 0A & March 2026 & Initial issue for review. \\
+\hline
+\issueNumber & \releaseDate & $C_1$ changed to two \qty{10}{\nano\farad}
+parts in parallel, so that both capacitor positions use the same component.
+Tolerance analysis added. \\
+\hline
+
+\end{tabularx}
+\caption{Document Revision Control}
+\label{tab:revisionControl}
+\end{table}

@@ -1,0 +1,59 @@
+% ====================================================================
+% introduction.tex (dissertation example)
+% ====================================================================
+
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Motivation}
+
+\lettrine[lines=2, slope=0em, loversize=0.14, nindent=0pt, lhang=0.3, lraise=0]{M}{OST}
+low-cost microcontrollers include an analogue-to-digital converter (ADC) with
+a resolution of 12 bits. With a \qty{3.3}{\volt} reference this gives a step
+size of \qty{0.8}{\milli\volt}, which is adequate for many measurements, but
+not for sensors whose output moves by only a small part of the input range. A
+load cell or a thermocouple, for example, may need steps of tens of microvolts
+to give a useful reading.
+
+The usual answer is to add an external converter with a higher resolution,
+which adds cost, board area and another device to configure. An alternative is
+to take many readings with the converter already present and average them.
+This is known as oversampling, and in principle it gives one extra bit of
+resolution for every factor of four in the number of readings
+averaged~\cite{atmel_avr121_2005}. It costs nothing in hardware, but the
+output rate falls by the same factor, so it suits signals that change slowly.
+
+The method has a condition attached, which is that the error in each reading
+must differ from the last. If every reading of a steady input returns the same
+code, their average is that same code and nothing has been gained. Some noise
+at the input is therefore needed, and application notes generally say that it
+should be around one LSB, without showing what happens when there is less.
+That gap is what this project sets out to fill.
+
+\subsection{Aim and objectives}
+
+The aim of the project is to establish how much input noise an ideal 12-bit
+converter needs for oversampling and averaging to deliver the resolution that
+theory predicts. The objectives are:
+
+\begin{enumerate}
+  \item To review the theory of quantisation noise and of oversampling, and
+        to state the predicted resolution as an equation that can be tested.
+  \item To build a simulation model of an ideal converter followed by an
+        averaging stage, and to check it against a case with a known answer.
+  \item To measure the effective resolution for oversampling ratios from 1
+        to 256, for a sine wave and for static inputs, at several noise
+        levels.
+  \item To compare the results with the theory, and to state the conditions
+        under which the two agree.
+\end{enumerate}
+
+\subsection{Structure of the dissertation}
+
+\Cref{sec:background} reviews the theory and the published guidance.
+\Cref{sec:method} describes the simulation model and the two tests carried
+out with it. The results are presented in \cref{sec:results} and discussed in
+\cref{sec:discussion}, along with the limitations of the model.
+\Cref{sec:conclusion} gives the conclusions and suggests further work. The
+source code of the simulation is listed in Appendix~\ref{app:source}, and the
+full table of results for the static test is in Appendix~\ref{app:results}.

@@ -1,0 +1,85 @@
+% ====================================================================
+% method.tex (dissertation example)
+% ====================================================================
+
+\section{Method}
+\label{sec:method}
+
+\subsection{Approach}
+
+The questions were investigated by simulation and not on hardware. On a real
+microcontroller the input noise cannot be set to a chosen value, and it is
+mixed with the converter's other imperfections, so the effect of the noise
+alone could not be separated out. A simulation allows the noise to be set
+exactly, including to zero, and the true input is known at every sample, so
+the error can be calculated directly. The cost of this choice is that the
+results describe an ideal converter, which is considered in
+\cref{sec:discussion}.
+
+\subsection{The model}
+
+The model has three parts, which follow \cref{fig:oversamplingChain}. The
+input is a voltage expressed in units of one LSB. Gaussian noise with a chosen
+rms value is added to it, and the sum is rounded to the nearest whole code and
+limited to the range of a 12-bit converter. \Cref{lst:adcModel} shows this
+part. Each output sample is then the mean of $M$ successive codes.
+
+\input{assets/code/python/adcModel}
+
+The model was written in Python using only its standard library, so that it
+can be run without installing anything further, and the random number
+generator is given a fixed seed so that the results repeat exactly. The full
+source is listed in Appendix~\ref{app:source}. The parameters are in
+\cref{tab:parameters}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{0.9\textwidth}{@{} X l @{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Converter resolution, $N$                 & 12 bits \\
+Oversampling ratios, $M$                  & 1, 4, 16, 64, 256 \\
+Input noise, $\sigma_n$                   & 0, 0.25, 0.5 and \qty{1.0}{LSB} rms \\
+Sine test: amplitude                      & \qty{2000}{LSB}, centred on mid-scale \\
+Sine test: frequency                      & \qty{3.71}{\percent} of the output sample rate \\
+Sine test: output samples per run         & 4096 \\
+Static test: input levels per run         & 2000, placed at random between two codes \\
+\bottomrule
+\end{tabularx}
+\caption{Parameters of the simulation.}
+\label{tab:parameters}
+\end{table}
+
+\subsection{Measuring the resolution}
+
+In both tests the error of each output sample is the difference between the
+averaged codes and the average of the true input over the same samples. The
+rms value of that error over the run, $e_{\mathrm{out}}$, is converted to an
+effective number of bits by comparing it with \cref{eq:quantisationNoise},
+
+\begin{equation}
+  \label{eq:enobMeasured}
+  \mathrm{ENOB} = N - \log_2\!\left(\frac{e_{\mathrm{out}}\sqrt{12}}{q}\right),
+\end{equation}
+so that an error equal to that of an ideal 12-bit converter gives exactly 12
+bits.
+
+\subsection{Test 1: sine wave input}
+
+The first test uses a sine wave covering most of the input range, with
+\qty{0.5}{LSB} rms of noise, and measures the resolution at each oversampling
+ratio. This is the case that \cref{eq:enobTheory} describes, so it serves as
+the check on the model as well as the first result. The frequency was chosen
+so that the run does not contain a whole number of cycles, which avoids the
+same few codes being exercised repeatedly.
+
+\subsection{Test 2: static inputs}
+
+The second test holds the input steady for the whole of each average, which
+is the condition under which the method is expected to fail without noise. A
+single level would not be representative, as an input that happens to sit at
+the centre of a step has no error to begin with, so each run uses 2000 levels
+spread at random across one step and takes the rms error over all of them.
+The test was repeated at each of the four noise levels in
+\cref{tab:parameters}.

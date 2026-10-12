@@ -1,0 +1,26 @@
+% ====================================================================
+% adcTiming.tex
+% --------------------------------------------------------------------
+% Sampling sequence, drawn with tikz-timing. Two sample periods are
+% shown. The widths are illustrative and not to scale.
+% ====================================================================
+
+\begin{figure}[htbp]
+\centering
+\begin{tikztimingtable}[
+  timing/slope=0,
+  timing/xunit=6mm,
+  timing/yunit=6mm
+]
+  Timer   & 1L 1H 9L 1H 8L \\
+  Acquire & 2L 2H 8L 2H 6L \\
+  Convert & 4L 4H 6L 4H 2L \\
+  IRQ     & 8L 1H 9L 1H 1L \\
+\extracode
+  \draw[<->, thin] (1,-7.4) -- (11,-7.4)
+    node[midway, below, font=\footnotesize] {\qty{100}{\micro\second}};
+\end{tikztimingtable}
+\caption{The sampling sequence over two sample periods. The timer starts each
+conversion, and the interrupt is raised when the result is ready.}
+\label{fig:adcTiming}
+\end{figure}

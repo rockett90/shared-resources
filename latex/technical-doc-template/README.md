@@ -17,6 +17,7 @@ your own.
 ## Contents
 
 - [Quick start](#quick-start)
+- [Worked examples](#worked-examples)
 - [What the built document contains](#what-the-built-document-contains)
 - [How the files fit together](#how-the-files-fit-together)
 - [Writing your document](#writing-your-document)
@@ -48,6 +49,48 @@ your own.
 
 That is enough for a first document. The rest of this page explains where
 everything lives and how to add to it.
+
+## Worked examples
+
+Two finished documents are included, so you can see what the template looks
+like with real content in it and not placeholder text.
+
+| | Technical document | Dissertation |
+|---|---|---|
+| What it is | A design note for an anti-aliasing filter in front of a 12-bit ADC | A dissertation on getting more resolution from an ADC by oversampling |
+| Length | 15 pages | 24 pages |
+| Built PDF | [technical-document-example.pdf](examples/technical-document-example.pdf) | [dissertation-example.pdf](examples/dissertation-example.pdf) |
+| Source | [examples/technical-document](examples/technical-document) | [examples/dissertation](examples/dissertation) |
+
+<p align="center">
+  <img src="examples/technical-document-preview.png" width="330" alt="Title page of the technical document example">
+  <img src="examples/dissertation-preview.png" width="330" alt="Title page of the dissertation example">
+</p>
+
+The company, the university and the author are made up, but the engineering
+is worked through properly. The filter values and tolerance figures in the
+design note are calculated, and the results in the dissertation come from a
+simulation script that is included with it, so the numbers in the text, the
+tables and the plots all agree.
+
+Between them they use most of what the template offers:
+
+- The design note has a revision table with two issues, a requirements table,
+  a circuit, a response plotted from its equation, a timing diagram, a C
+  listing, a test plan and a derivation in an appendix.
+- The dissertation has the dissertation front matter switched on, tables and
+  plots built straight from the simulation's CSV files, a code listing pulled
+  from the real source file, and two appendices.
+
+Each example folder holds only the files that differ from the template, which
+makes them a good guide to what you would change for a document of your own.
+To build one yourself, copy the template and then copy the example folder over
+the top. There is also a script that does this for both and refreshes the PDFs
+and preview images:
+
+```bash
+bash examples/build-examples.sh
+```
 
 ## What the built document contains
 
@@ -110,7 +153,7 @@ assets/
   code/                       one file per code listing, grouped by language
 
 bib/mybib.bib                 your references
-examples/                     a built example of the dissertation variant
+examples/                     two worked examples, as built PDFs and as source
 LINKS.md                      editors and package documentation I find useful
 ```
 
@@ -343,13 +386,10 @@ without any other changes.
 ## Using it for a dissertation
 
 The template also has a dissertation title page, a declaration of authorship,
-an abstract and acknowledgements. They are switched off by default.
-[examples/dissertation-example.pdf](examples/dissertation-example.pdf) is the
-template built with all four switched on, so you can see the result first.
-
-<p align="center">
-  <img src="examples/dissertation-preview.png" width="380" alt="The dissertation title page">
-</p>
+an abstract and acknowledgements. They are switched off by default. The
+dissertation in [Worked examples](#worked-examples) has all four switched on,
+so you can see the result first, and its `frontmatter.tex` shows the changes
+described below.
 
 To switch them on, open `content/frontmatter/frontmatter.tex`:
 
@@ -408,6 +448,7 @@ because it needs Python with Pygments installed, and a build with
 | References show as `??` | LaTeX needs another pass to settle the numbers. Build again |
 | `Undefined control sequence \qty` | Your `siunitx` is older than version 3. Update your TeX distribution |
 | The logo is not found | Check `\logoPath` in `metadata.tex`. File names are case sensitive on Linux and Overleaf, so `Logo.png` and `logo.png` are different files |
+| The title runs into the text either side of it in the footer | The title is too long for the centre of the footer. Shorten `\documentTitle`, or change what `\cfoot` shows in `preamble/header-footer.tex` |
 | Errors mentioning `minted` | It needs Pygments and a build with `-shell-escape`, see [Slimming it down](#slimming-it-down) |
 
 ## Requirements

@@ -1,0 +1,63 @@
+% ====================================================================
+% main.tex
+% --------------------------------------------------------------------
+% Project:   Technical Document Template
+% File:      main.tex (technical document example)
+%
+% This folder holds only the files that differ from the template. To
+% build it, copy the template and then copy this folder over the top,
+% or run examples/build-examples.sh, which does exactly that.
+% ====================================================================
+
+\documentclass[12pt,onecolumn]{article}
+
+% --------------------------------------------------
+% Preamble: packages and configuration
+% --------------------------------------------------
+\input{preamble/packages}        % All \usepackage and basic setup
+\input{preamble/metadata}        % Document title, issue, date, draft flag
+\input{preamble/macros}          % General-purpose macros
+\input{preamble/layout}          % Tables, section/ToC depth
+\input{preamble/header-footer}   % fancyhdr setup
+\input{preamble/styling}         % Colours, link styles, listings style
+\input{preamble/watermark}       % Watermark (only renders in draft mode)
+
+% --------------------------------------------------
+% Document body
+% --------------------------------------------------
+\begin{document}
+
+% Front matter
+\input{content/frontmatter/frontmatter}
+
+% --------------------------------------------------
+% Sections
+% --------------------------------------------------
+\input{content/sections/introduction}
+\input{content/sections/requirements}
+\input{content/sections/design}
+\clearpage
+\input{content/sections/performance}
+\clearpage
+\input{content/sections/firmware}
+\clearpage
+\input{content/sections/verification}
+\clearpage
+
+% --------------------------------------------------
+% Bibliography
+% --------------------------------------------------
+\bibliographystyle{IEEEtran}     % IEEE numeric citation style
+\phantomsection                  % anchor, so the ToC link lands on this page
+\addcontentsline{toc}{section}{References}
+\bibliography{bib/mybib}
+\clearpage
+
+% --------------------------------------------------
+% Appendices
+% --------------------------------------------------
+\appendix
+\input{content/appendices/appendix_a}
+\clearpage
+
+\end{document}

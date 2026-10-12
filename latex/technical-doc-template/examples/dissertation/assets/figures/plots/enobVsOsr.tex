@@ -1,0 +1,37 @@
+% ====================================================================
+% enobVsOsr.tex
+% --------------------------------------------------------------------
+% Effective resolution against oversampling ratio, plotted with
+% pgfplots straight from the simulation's CSV output.
+% ====================================================================
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+  width=0.88\linewidth,
+  height=7cm,
+  grid=major,
+  log basis x=2,
+  xmin=0.7, xmax=362,
+  ymin=10.5, ymax=15.5,
+  xtick={1,4,16,64,256},
+  xticklabels={1,4,16,64,256},
+  xlabel={Oversampling ratio, $M$},
+  ylabel={Effective resolution (bits)},
+  legend pos=north west,
+  legend cell align=left,
+]
+  \addplot[thick, linkblue] table[col sep=comma, x=osr, y=theory]
+    {assets/data/enob_vs_osr.csv};
+  \addlegendentry{Theory}
+
+  \addplot[only marks, mark=*, mark size=2.5pt, red]
+    table[col sep=comma, x=osr, y=sim] {assets/data/enob_vs_osr.csv};
+  \addlegendentry{Simulated}
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{Effective resolution against oversampling ratio for a sine wave
+input with \qty{0.5}{LSB} rms of noise.}
+\label{fig:enobVsOsr}
+\end{figure}

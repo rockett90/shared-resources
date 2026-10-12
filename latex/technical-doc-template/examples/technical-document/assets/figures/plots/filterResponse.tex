@@ -1,0 +1,47 @@
+% ====================================================================
+% filterResponse.tex
+% --------------------------------------------------------------------
+% Magnitude response of the filter at its nominal values, drawn with
+% pgfplots from the design equation (f0 = 995.9 Hz, Q = 0.7071).
+% ====================================================================
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+  width=0.92\linewidth,
+  height=7.5cm,
+  grid=both,
+  minor grid style={gray!20},
+  major grid style={gray!45},
+  xmin=10, xmax=20000,
+  ymin=-60, ymax=5,
+  ytick={-60,-50,-40,-30,-20,-10,0},
+  xlabel={Frequency (Hz)},
+  ylabel={Gain (dB)},
+  legend pos=south west,
+  legend cell align=left,
+]
+  \addplot[domain=10:20000, samples=300, very thick, linkblue]
+    {-10*log10((1 - (x/995.9)^2)^2 + (x/(995.9*0.7071))^2)};
+  \addlegendentry{Filter response}
+
+  % Stopband requirement: 35 dB at 9.5 kHz
+  \addplot[only marks, mark=*, mark size=2.5pt, red] coordinates {(9500,-35)};
+  \addlegendentry{Requirement R5}
+
+  % Top of the signal band
+  \draw[dashed, gray] (axis cs:500,-60) -- (axis cs:500,5);
+  \node[font=\footnotesize, anchor=south east, rotate=90]
+    at (axis cs:500,-58) {top of signal band};
+
+  \node[font=\footnotesize, anchor=west]
+    at (axis cs:1100,-3) {\qty{-3}{\decibel} at \qty{996}{\hertz}};
+  \node[font=\footnotesize, anchor=east]
+    at (axis cs:9000,-41) {\qty{-39.2}{\decibel}};
+\end{semilogxaxis}
+\end{tikzpicture}
+\caption{Calculated magnitude response at the nominal component values. The
+curve passes \qty{4.2}{\decibel} below the stopband requirement.}
+\label{fig:filterResponse}
+\end{figure}

@@ -1,0 +1,44 @@
+% ====================================================================
+% conclusion.tex (dissertation example)
+% ====================================================================
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+The aim of this project was to establish how much input noise an ideal 12-bit
+converter needs for oversampling and averaging to deliver the resolution that
+theory predicts. Taking the objectives in turn:
+
+\begin{enumerate}
+  \item The theory was reviewed and reduced to a single testable prediction,
+        \cref{eq:enobTheory}, which gives the effective resolution in terms
+        of the oversampling ratio and the input noise.
+  \item A simulation model was built and checked against the case with no
+        averaging, where it gave 10.97 bits against a predicted 11.00.
+  \item The effective resolution was measured for oversampling ratios from 1
+        to 256, for a sine wave and for static inputs at four noise levels.
+  \item With \qty{0.5}{LSB} rms of noise or more, the results agreed with the
+        theory for both kinds of input, reaching 15.0 effective bits at a
+        ratio of 256. With \qty{0.25}{LSB} the improvement stopped at around
+        14 bits, and with no noise there was none for a static input.
+\end{enumerate}
+
+The answer to the question is therefore that about half an LSB rms of noise
+is sufficient up to an oversampling ratio of 256, and that this is also close
+to the best choice, as doubling it cost almost a bit of resolution. This is a
+more specific figure than the one LSB or more given in the guidance that was
+reviewed.
+
+\subsection{Further work}
+
+The most useful next step would be to repeat the static test on a real
+microcontroller, using a precision voltage source for the input, to find how
+far the non-linearity of an actual converter limits what the simulation
+predicts.
+
+The model could also be extended in two directions. The first is to replace
+the Gaussian noise with a deliberately added triangular waveform, which is
+simpler to generate in a circuit and may need a smaller amplitude for the
+same result. The second is to carry the oversampling ratio beyond 256, as the
+curve for \qty{0.5}{LSB} must eventually level out in the same way as the
+curve for \qty{0.25}{LSB}, and it would be useful to know where.

@@ -1,0 +1,38 @@
+% ====================================================================
+% filterCircuit.tex
+% --------------------------------------------------------------------
+% Unity-gain Sallen-Key low-pass filter, drawn with CircuiTikZ.
+% ====================================================================
+
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}
+  % Op-amp as a follower, non-inverting input at the top
+  \node[op amp, noinv input up] (U1) at (8,0) {U1};
+
+  % Input, R1, junction A, R2, junction B, into the non-inverting input
+  \draw (0,0 |- U1.+) node[left] {$\Vin$}
+        to[short, o-] ++(0.4,0)
+        to[R, l=$R_1$] ++(2.4,0) coordinate (A)
+        to[R, l=$R_2$] ++(2.6,0) coordinate (B)
+        -- (U1.+);
+
+  % C2 from junction B to ground
+  \draw (B) to[C, l=$C_2$, *-] ++(0,-2.2) node[ground] {};
+
+  % C1 from junction A up and across to the output
+  \draw (A) to[short, *-] ++(0,2) coordinate (Atop)
+        to[C, l=$C_1$] (Atop -| U1.out)
+        to[short, -*] (U1.out);
+
+  % Follower feedback from the output to the inverting input
+  \draw (U1.-) -- ++(-0.5,0) -- ++(0,-1.3) coordinate (fb)
+        -- (fb -| U1.out) to[short, -*] ([yshift=-0.01cm]U1.out);
+
+  % Output
+  \draw (U1.out) to[short, -o] ++(1.2,0) node[right] {$\Vout$};
+\end{circuitikz}
+\caption{The unity-gain Sallen-Key low-pass filter. $C_1$ is the feedback
+capacitor and $C_2$ is the capacitor to ground.}
+\label{fig:filterCircuit}
+\end{figure}

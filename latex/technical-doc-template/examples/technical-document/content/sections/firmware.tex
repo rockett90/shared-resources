@@ -1,0 +1,41 @@
+% ====================================================================
+% firmware.tex (design note example)
+% ====================================================================
+
+\section{Firmware Interface}
+\label{sec:firmware}
+
+The filter is designed around a sample rate of exactly
+\qty{10}{\kilo\hertz}, so the firmware has to hold that rate steady. If
+conversions were started from the main loop, the interval between them would
+vary with whatever else the processor was doing, and that jitter would add
+noise to the samples. A hardware timer is used to start each conversion
+instead, which means the sample instants are set by the timer and not by the
+code.
+
+\subsection{Sampling sequence}
+
+The sequence for each sample is shown in \cref{fig:adcTiming}. The timer
+overflows every \qty{100}{\micro\second} and triggers the converter, which
+holds the input for its acquisition time and then converts. When the
+conversion finishes the converter raises an interrupt, and the interrupt
+routine stores the result.
+
+\input{assets/figures/plots/adcTiming}
+
+The filter's output impedance is low, as it is driven by the op-amp, so the
+converter's sample capacitor settles well within the acquisition time and no
+extra buffer is needed between the two.
+
+\subsection{Example code}
+
+\Cref{lst:adcSampling} shows the arrangement. The function names stand in for
+those of the microcontroller's own hardware library, which differ from one
+family to the next, but the structure is the same on any of them.
+
+\input{assets/code/C/adcSampling}
+
+The interrupt routine only stores the sample and moves the index on. Anything
+slower, such as scaling or further digital filtering, is left to the main
+loop, so that the routine is always finished long before the next conversion
+completes.

@@ -1,0 +1,97 @@
+% ====================================================================
+% design.tex (design note example)
+% ====================================================================
+
+\section{Design}
+\label{sec:design}
+
+\subsection{Choice of circuit}
+
+A single resistor and capacitor would be the simplest filter, but its response
+falls at only \qty{20}{\decibel} per decade, so a corner frequency low enough
+to give \qty{35}{\decibel} at \qty{9.5}{\kilo\hertz} would sit at around
+\qty{170}{\hertz} and would cut into the signal band. A second-order filter
+falls at \qty{40}{\decibel} per decade, which allows the corner to be placed at
+\qty{1}{\kilo\hertz}, comfortably above the signal band, whilst still meeting
+the stopband requirement.
+
+The unity-gain Sallen-Key circuit~\cite{sallen_key_1955} in
+\cref{fig:filterCircuit} was chosen because it needs only one op-amp, two
+resistors and two capacitors, and because with the op-amp connected as a
+follower the passband gain is exactly one and does not depend on any resistor
+ratio. A Butterworth response is used, as it is the flattest in the passband
+and requirement R4 is about flatness.
+
+\input{assets/figures/circuits/filterCircuit}
+
+\subsection{Design equations}
+
+The transfer function of the circuit, which is derived in
+Appendix~\ref{app:derivation}, is
+
+\begin{equation}
+  \label{eq:transferFunction}
+  H(s) = \frac{\Vout}{\Vin}
+       = \frac{1}{1 + s\,C_2(R_1 + R_2) + s^2 R_1 R_2 C_1 C_2}.
+\end{equation}
+
+Comparing this with the standard second-order form gives the natural frequency
+and the quality factor,
+
+\begin{align}
+  \label{eq:naturalFrequency}
+  f_0 &= \frac{1}{2\pi\sqrt{R_1 R_2 C_1 C_2}}, \\[4pt]
+  \label{eq:qualityFactor}
+  Q   &= \frac{\sqrt{R_1 R_2 C_1 C_2}}{C_2(R_1 + R_2)}.
+\end{align}
+
+If the two resistors are made equal, so that $R_1 = R_2 = R$,
+\cref{eq:qualityFactor} reduces to $Q = \tfrac{1}{2}\sqrt{C_1/C_2}$, and the
+quality factor then depends only on the ratio of the capacitors. A Butterworth
+response needs $Q = 1/\sqrt{2}$, which means $C_1 = 2C_2$.
+
+\subsection{Component values}
+
+Capacitors come in far fewer values than resistors, so the capacitors are
+chosen first. Taking $C_2$ as \qty{10}{\nano\farad}, $C_1$ has to be
+\qty{20}{\nano\farad}, which is made from two \qty{10}{\nano\farad} parts in
+parallel. This gives the exact two-to-one ratio, and it means all three
+capacitors are the same component, so they will tend to drift together with
+temperature and the ratio that sets $Q$ is preserved.
+
+Rearranging \cref{eq:naturalFrequency} for a corner at \qty{1}{\kilo\hertz}
+gives the resistor value,
+
+\begin{equation}
+  R = \frac{1}{2\pi f_0\sqrt{C_1 C_2}}
+    = \frac{1}{2\pi \times \qty{1}{\kilo\hertz} \times \qty{14.14}{\nano\farad}}
+    = \qty{11.25}{\kilo\ohm},
+\end{equation}
+and the nearest standard value is \qty{11.3}{\kilo\ohm}, which moves the
+corner to \qty{996}{\hertz}. The full list of parts is in
+\cref{tab:components}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabularx}{\textwidth}{@{} l l l X @{}}
+\toprule
+\textbf{Part} & \textbf{Value} & \textbf{Tolerance} & \textbf{Notes} \\
+\midrule
+$R_1$, $R_2$ & \qty{11.3}{\kilo\ohm} & \qty{1}{\percent} & Thin film, E96 series \\
+$C_1$        & \qty{20}{\nano\farad} & \qty{5}{\percent} & Two \qty{10}{\nano\farad} C0G parts in parallel \\
+$C_2$        & \qty{10}{\nano\farad} & \qty{5}{\percent} & C0G, the same part as $C_1$ \\
+U1           & Op-amp                & n/a               & Rail-to-rail input and output, GBW of \qty{1}{\mega\hertz} or more \\
+\bottomrule
+\end{tabularx}
+\caption{Component values for the filter.}
+\label{tab:components}
+\end{table}
+
+C0G capacitors are specified because their value does not change with the
+voltage across them, whereas the capacitance of the cheaper X7R type falls as
+the voltage rises, which would distort the signal as well as moving the
+corner frequency. The op-amp needs rail-to-rail inputs and outputs because it
+runs as a follower from a single \qty{3.3}{\volt} rail, and a gain-bandwidth
+of at least a hundred times the corner frequency keeps its own roll-off from
+affecting the response~\cite{karki_sallen_key_2002}. A general-purpose CMOS
+part such as the MCP6002 meets both points.

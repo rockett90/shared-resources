@@ -1,0 +1,30 @@
+% ====================================================================
+% abstract.tex (dissertation example)
+% ====================================================================
+
+\phantomsection
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+\label{sec:abstract}
+
+Low-cost microcontrollers usually include a 12-bit analogue-to-digital
+converter, which is not enough for sensors whose output changes by only a
+small fraction of the input range. Oversampling and averaging is a well-known
+way to obtain more resolution from the same converter, at the cost of a lower
+output rate, but it only works if the conversion errors differ from one sample
+to the next, and the amount of noise needed for that is often stated loosely.
+
+This dissertation examines the technique by simulation. An ideal 12-bit
+converter was modelled with Gaussian noise added at its input, and the
+effective resolution after averaging was measured for oversampling ratios
+from 1 to 256, with both a sine wave and static inputs. With
+\qty{0.5}{LSB} rms of noise the simulated resolution followed the theoretical
+gain of one bit for every factor of four in oversampling ratio to within
+0.03~bits, reaching 15.0 effective bits at a ratio of 256. With no noise,
+averaging a static input gave no improvement at all, and with
+\qty{0.25}{LSB} rms the improvement stopped at around 14 bits.
+
+The results show that about half an LSB of noise is enough for the method to
+work as predicted up to a ratio of 256, and that adding more than this costs
+resolution. The model does not include converter non-linearity, which
+averaging cannot correct, so the figures are an upper limit for a real device.
