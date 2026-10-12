@@ -5,10 +5,11 @@
 %
 % Assumes:
 %   - fancyhdr is loaded in packages.tex
-%   - \documentTitle, \issueNumber, \releaseDate are defined in metadata.tex
+%   - \companyName, \documentTitle, \issueNumber are defined in metadata.tex
 % ====================================================================
 
 \pagestyle{fancy}
+\fancyhf{}                      % clear fancyhdr's defaults; every slot is set below
 
 % --------------------------------------------------
 % Header content
@@ -16,9 +17,12 @@
 % Left header: company name
 \fancyhead[L]{\large{\companyName}}
 
-% Optionally, you could enable these:
+% Right header: running section title. Delete this line for an empty
+% slot, or swap in \documentNumber.
+\fancyhead[R]{\slshape\leftmark}
+
+% Optionally, you could enable this:
 % \fancyhead[C]{\documentTitle}
-% \fancyhead[R]{\documentNumber}
 
 % --------------------------------------------------
 % Footer content and rules

@@ -7,7 +7,7 @@
 %   - \documentTitle, \documentType, \issueNumber, \releaseDate are
 %     defined in metadata.tex
 %   - graphicx is loaded in packages.tex
-%   - The logo image path (\logoPath) is valid
+%   - The logo image path (\logoPath) is valid, and \logoWidth is set
 %   - Overview text is in a separate file (overview.tex)
 %   - The optional key-figure block at the bottom expects a figure file
 %     under assets/figures/ (or the block can be removed entirely).
@@ -21,8 +21,9 @@
   \setlength{\parindent}{0pt}
 
   \begin{minipage}{0.4\textwidth}
-    % Logo path is defined in metadata.tex via \logoPath.
-    \includegraphics[width=0.75\textwidth]{\logoPath}
+    % Logo path and width are defined in metadata.tex via \logoPath
+    % and \logoWidth.
+    \includegraphics[width=\logoWidth]{\logoPath}
   \end{minipage}%
   \begin{minipage}{0.6\textwidth}
     \raggedleft

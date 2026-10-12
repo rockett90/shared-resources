@@ -23,4 +23,4 @@ using circuit or timing diagrams.
 - **tikz-timing** — https://ctan.org/pkg/tikz-timing
 - **pgfplots** — https://ctan.org/pkg/pgfplots
 - **listings** — https://ctan.org/pkg/listings
-- **biblatex / natbib** — https://ctan.org/pkg/natbib
+- **natbib** — https://ctan.org/pkg/natbib

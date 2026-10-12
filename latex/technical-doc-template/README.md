@@ -35,7 +35,7 @@ out of the box.
 
 For most documents you only need to touch a few places:
 
-- `preamble/metadata.tex` — title, author, company, issue, date, logo path
+- `preamble/metadata.tex` — title, author, company, issue, date, logo path and width
 - `content/frontmatter/titlepage/overview.tex` — Short paragraph on the standard (non-dissertation) title page
 - `content/frontmatter/titlepage/titlePage.tex` — Update the figure for your circuit or example
 - `content/sections` — the actual writing
@@ -98,9 +98,11 @@ The dissertation parts ship commented out in
 4. **Acknowledgements** — uncomment its `\input` line and `\clearpage`.
 
 Then fill in the dissertation fields (author, supervisor, department,
-university, degree, submission date) in **`preamble/metadata.tex`**. Every field
-has a bracketed fallback such as `[supervisor name]`, so the title page always
-compiles and shows you exactly what still needs filling in.
+university, degree, submission date) in **`preamble/metadata.tex`**. They ship
+with placeholder values such as `Dr A. Supervisor`, so the title page compiles
+out of the box; replace each one. If you delete a field instead, a bracketed
+fallback such as `[supervisor name]` is printed in its place, so the page still
+compiles and the gap is obvious.
 
 Set `\draftmodefalse` in `metadata.tex` for the final, watermark-free build —
 this is how the example PDF above was produced.
@@ -113,7 +115,8 @@ For printed and bound copies, see the `bindingoffset` comment in
 
 ## Requirements
 
-- A reasonably current TeX distribution (TeX Live 2020+ or MiKTeX)
+- A reasonably current TeX distribution (TeX Live 2021+ or an up-to-date
+  MiKTeX): `\qty` needs siunitx v3 and the plots need pgfplots 1.18, both 2021
 - Packages: libertine, circuitikz, tikz-timing, siunitx, natbib, nomencl,
   pgfplots, hyperref, cleveref, and the usual suspects (all in TeX Live)
 - IEEEtran.bst (for IEEE-style citations, included in TeX Live)

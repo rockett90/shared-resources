@@ -43,8 +43,6 @@
 \usepackage[onehalfspacing]{setspace}   % line spacing
 \usepackage{multicol}
 \usepackage{enumitem}
-\usepackage{eso-pic}                    % background / overlay elements
-\usepackage{titling}                    % custom title page
 \usepackage{float}                      % 'H' float specifier
 \usepackage{atbegshi}                   % shipout hooks (used by watermark.tex)
 
@@ -67,7 +65,7 @@
 % Maths and units
 % --------------------------------------------------
 \usepackage{mathtools}                  % also loads amsmath
-\usepackage{siunitx}                    % v3+ uses \qty{...}{...} (\SI still works)
+\usepackage{siunitx}                    % v3+ uses \qty{...}{...} and \unit{...} (\SI, \si still work)
 \usepackage{empheq}                     % visual markup for equations
 
 % --------------------------------------------------
@@ -114,7 +112,7 @@
 % --------------------------------------------------
 % Nomenclature
 % --------------------------------------------------
-\usepackage{nomencl}
+\usepackage[intoc]{nomencl}             % intoc: list the nomenclature in the ToC
 
 % --------------------------------------------------
 % [OPTIONAL] Development / dummy text

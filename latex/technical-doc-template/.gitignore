@@ -1,8 +1,8 @@
 # LaTeX build artifacts — keep the folder clean if compiled in place.
-# preview.png is committed deliberately (it's the README preview).
+# Preview images and the PDFs under examples/ are committed deliberately.
 
-# Compiled output
-main.pdf
+# Compiled output (anchored, so PDF figures and example PDFs are not ignored)
+/main.pdf
 
 # latexmk
 *.fdb_latexmk
@@ -17,16 +17,47 @@ main.pdf
 *.lot
 *.synctex.gz
 *.synctex(busy)
+*.synctex.gz(busy)
 *.xdv
+*.nav
+*.snm
+*.vrb
 
 # Bibliography
 *.bbl
 *.blg
+*.bcf
+*.run.xml
 
 # Nomenclature (nomencl)
 *.nlo
 *.nls
 *.ilg
+
+# Index / glossaries / acronyms
+*.idx
+*.ind
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.acn
+*.acr
+*.alg
+
+# minted and other tool output
+_minted*/
+*.pyg
+*.bak
+*.tmp
+*.dpth
+*.md5
+
+# Output directories (if you use them)
+build/
+out/
+dist/
 
 # Editor / OS noise
 *.swp
@@ -34,3 +65,6 @@ main.pdf
 .DS_Store
 Thumbs.db
 .vscode/
+.idea/
+.texstudio/
+*.texstudio

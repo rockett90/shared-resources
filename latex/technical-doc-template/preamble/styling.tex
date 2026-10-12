@@ -5,13 +5,16 @@
 % ====================================================================
 
 % --------------------------------------------------
-% Hyperref link styling
+% Hyperref link styling and PDF document properties
 % --------------------------------------------------
+% Requires: \documentTitle and \authorName from metadata.tex
 \hypersetup{
   colorlinks=true,
   linkcolor=linkblue,
   citecolor=linkblue,
-  urlcolor=linkblue
+  urlcolor=linkblue,
+  pdftitle={\documentTitle},
+  pdfauthor={\authorName}
 }
 
 % --------------------------------------------------

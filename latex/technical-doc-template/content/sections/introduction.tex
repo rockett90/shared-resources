@@ -59,7 +59,7 @@ Using this current, the power dissipated in the resistor can be estimated as
 \end{align}
 
 Here, \texttt{siunitx} is used to keep all numerical values and units formatted
-consistently via \verb|\qty{...}{...}| and \verb|\si{...}|, while \texttt{mathtools}
+consistently via \verb|\qty{...}{...}| and \verb|\unit{...}|, while \texttt{mathtools}
 and \texttt{amsmath} provide the aligned equations.
 
 % --------------------------------------------------
@@ -99,9 +99,9 @@ This figure shows a simple time-domain plot created directly in \LaTeX\ using th
 % timing diagrams
 % --------------------------------------------------
 
-\subsection{Example: Timing Diagram}
+\subsubsection{Timing Diagrams}
 
-Figure \vref{fig:timing-example} shows an example digital timing diagram created directly in \LaTeX\ using the \texttt{tikz-timing} package. The diagram includes a free-running clock, an active-low reset pulse, a data signal, and a \texttt{VALID} strobe indicating when the data should be sampled.
+\Vref{fig:timing-example} shows an example digital timing diagram created directly in \LaTeX\ using the \texttt{tikz-timing} package. The diagram includes a free-running clock, an active-low reset pulse, a data signal, and a \texttt{VALID} strobe indicating when the data should be sampled.
 
 \input{assets/figures/plots/exampleTiming}
 
