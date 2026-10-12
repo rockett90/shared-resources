@@ -67,14 +67,12 @@ like with real content in it and not placeholder text.
   <img src="examples/dissertation-preview.png" width="330" alt="Title page of the dissertation example">
 </p>
 
-The content of both was developed by Claude Opus 5.5, an AI model made by
-Anthropic, which I asked to use the template and write them as examples. The
-company, the university and the author named in them are made up. The
-engineering is worked through properly all the same: the filter values and
-tolerance figures in the design note are calculated, and the results in the
-dissertation come from a simulation script that is included with it, so the
-numbers in the text, the tables and the plots all agree. There is more on
-this in [examples/README.md](examples/README.md).
+The company, the university and the author are made up, but the engineering
+is worked through properly. The filter values and tolerance figures in the
+design note are calculated, and the results in the dissertation come from a
+simulation script that is included with it, so the numbers in the text, the
+tables and the plots all agree. There is more on how they were put together
+in [examples/README.md](examples/README.md).
 
 Between them they use most of what the template offers:
 
